@@ -5,6 +5,7 @@ on:
       - 'main'
     paths:
       - 'packages/haku-work/**'
+  workflow_dispatch:
 jobs:
   deploy:
     runs-on: ubuntu-latest
