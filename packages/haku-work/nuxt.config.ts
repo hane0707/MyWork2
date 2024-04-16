@@ -6,7 +6,7 @@ export default defineNuxtConfig({
     preset: 'firebase' ,
     // 追加
     firebase: {
-      nodeVersion: '18',
+      nodeVersion: '20',
       gen: 2,
       httpsOptions: {
         region: 'asia-northeast1',
