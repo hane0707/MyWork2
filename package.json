@@ -15,5 +15,8 @@
   ],
   "dependencies": {
     "firebase-functions": "^4.9.0"
+  },
+  "optionalDependencies": {
+    "@rollup/rollup-linux-x64-gnu": "4.14.3"
   }
 }
