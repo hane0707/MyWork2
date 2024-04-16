@@ -1,0 +1,19 @@
+{
+  "name": "mywork2",
+  "version": "1.0.0",
+  "description": "Firebase+Nuxt3",
+  "main": "index.js",
+  "scripts": {
+    "dev": "npm run dev --workspaces --if-present",
+    "build": "npm run build --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present"
+  },
+  "author": "",
+  "license": "ISC",
+  "workspaces": [
+    "packages/haku-work"
+  ],
+  "dependencies": {
+    "firebase-functions": "^4.9.0"
+  }
+}

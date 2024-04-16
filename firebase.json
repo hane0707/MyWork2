@@ -1,0 +1,20 @@
+{
+  "functions": {
+    "source": "packages/haku-work/.output/server",
+    "runtime": "nodejs20",
+    "predeploy": [
+      "npm install --prefix $RESOURCE_DIR legacy-peer-deps=true"
+    ]
+  },
+  "hosting": {
+    "public": "packages/haku-work/.output/public",
+    "rewrites": [
+      { "source": "**", "function": "server" }
+    ],
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}
