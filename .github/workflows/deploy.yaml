@@ -11,7 +11,7 @@ jobs:
     env:
       GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
       GCLOUD_SERVICE_KEY: ${{ secrets.GCLOUD_SERVICE_KEY }}
-      GCLOUD_PROJECT: ${{ secrets.GCLOUD_PROJECT }}
+      FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
     runs-on: ubuntu-latest
     permissions: 
       id-token: write
@@ -33,7 +33,7 @@ jobs:
       - name: make GOOGLE_APPLICATION_CREDENTIALS
         run: echo $GCLOUD_SERVICE_KEY | base64 -d > $GOOGLE_APPLICATION_CREDENTIALS
       - name: deploy to hosting
-        run: firebase deploy --project $GCLOUD_PROJECT
+        run: firebase deploy --project $FIREBASE_PROJECT_ID
         # 認証用jsonファイルを削除
       - name: delete GOOGLE_APPLICATION_CREDENTIALS
         run: rm $GOOGLE_APPLICATION_CREDENTIALS
