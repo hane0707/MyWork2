@@ -1,0 +1,46 @@
+# firebase deploy時に以下エラーが発生するが、ロール追加後も改善しないため一時保留。
+# Error: Missing permissions required for functions deploy. You must have permission iam.serviceAccounts.ActAs on service account ***@appspot.gserviceaccount.com.
+# To address this error, ask a project Owner to assign your account the "Service Account User" role from this URL:
+# https://console.cloud.google.com/iam-admin/iam?project=***
+
+
+# name: Deploy to Firebase
+# on:
+#   push: 
+#     branches:
+#       - 'main'
+#     paths:
+#       - 'packages/haku-work/**'
+#   workflow_dispatch:
+# jobs:
+#   deploy:
+#     env:
+#       GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+#       GCLOUD_SERVICE_KEY: ${{ secrets.GCLOUD_SERVICE_KEY }}
+#       FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
+#     runs-on: ubuntu-latest
+#     permissions: 
+#       id-token: write
+#       contents: read
+#     steps:
+#       - uses: actions/checkout@v3
+#       - uses: actions/setup-node@v3
+#         with:
+#           node-version: '20.x'
+#       - uses: 'google-github-actions/auth@v0.4.0'
+#         with:
+#           workload_identity_provider: '${{ secrets.PROVIDER }}'
+#           service_account: '${{ secrets.SERVICE_ACCOUNT }}'
+#       - name: install firebase
+#         run: npm install -g firebase-tools 
+#       - run: npm ci
+#       - run: npm run build
+#         # 認証情報を保持するjsonファイルをGOOGLE_APPLICATION_CREDENTIALSで指定したpassに生成
+#       - name: make GOOGLE_APPLICATION_CREDENTIALS
+#         run: echo $GCLOUD_SERVICE_KEY | base64 -d > $GOOGLE_APPLICATION_CREDENTIALS
+#       - name: deploy to hosting
+#         run: firebase deploy --project $FIREBASE_PROJECT_ID
+#         # 認証用jsonファイルを削除
+#       - name: delete GOOGLE_APPLICATION_CREDENTIALS
+#         run: rm $GOOGLE_APPLICATION_CREDENTIALS
+#         if: ${{ always() }}

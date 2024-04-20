@@ -13,5 +13,9 @@ export default defineNuxtConfig({
         maxInstances: 1
       }
     }
-  }
+  },
+  postcss :{
+    plugins: { tailwindcss: {} },
+  },
+  css: ['~/assets/css/tailwind.css'],
 })
