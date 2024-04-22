@@ -1,6 +1,14 @@
 <template>
-  <div>
-    <p class="text-8xl text-center">Tailwindcss test</p>
-    <NuxtWelcome />
-  </div>
+  <v-app>
+    <NuxtLayout>
+      <v-main>
+        <NuxtPage />
+      </v-main>
+    </NuxtLayout>
+  </v-app>
 </template>
+<script>
+</script>
+ 
+<style>
+</style>
