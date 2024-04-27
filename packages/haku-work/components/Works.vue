@@ -1,11 +1,21 @@
 <template>
-  <h1>Work部分</h1>
-  <p>1</p>
-  <p>2</p>
-  <p>3</p>
-  <p>4</p>
-  <p>5</p>
-  <p>6</p>
-  <p>7</p>
-  <p>8</p>
+  <v-container>
+    <p class="text-2xl">Works</p>
+    <v-card
+      class="mx-auto"
+      max-width="36vh"
+      height="28vh"
+      color="surface-variant"
+      image="https://cdn.vuetifyjs.com/docs/images/cards/dark-beach.jpg"
+      subtitle="Take a walk down the beach"
+      title="Evening sunset"
+      nuxt to="/works"
+    >
+    </v-card>
+    <NuxtLink
+      to='/works'
+      class="my-2 text-sm underline underline-offset-1 hover:text-gray-600/50 transition-all duration-500 ease-out"
+    >View all…
+    </NuxtLink>
+  </v-container>
 </template>

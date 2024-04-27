@@ -1,21 +1,12 @@
 <template>
-    <HeaderSection />
-        <div class="main-contents">
+    <Header />
+        <div>
             <slot />
         </div>
-    <FooterSection />
+    <Footer />
 </template>
 
 <script>
-import HeaderSection from "~/components/Header.vue";
-import FooterSection from "~/components/Footer.vue";
-
-export default {
-    components: {
-        HeaderSection,
-        FooterSection
-    }
-}
 </script>
  
 <style>
