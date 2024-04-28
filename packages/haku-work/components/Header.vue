@@ -1,12 +1,14 @@
 <template>
     <header>
       <v-app-bar :elevation="0">
-        <v-app-bar-title><NuxtLink to="/" class="text-4xl">Haku-works</NuxtLink></v-app-bar-title>
+        <v-app-bar-title><NuxtLink to="/" class="text-4xl text-grey-darken-3">Haku-works</NuxtLink></v-app-bar-title>
         <template v-slot:append>
-          <v-btn nuxt to='/' class="hidden-xs" color=''><span class="custom-first-letter">TOP</span></v-btn>
-          <v-btn nuxt to='/about' class="hidden-xs" color=''><span class="custom-first-letter">ABOUT</span></v-btn>
-          <v-btn nuxt to='/works' class="hidden-xs" color=''><span class="custom-first-letter">WORKS</span></v-btn>
+          <div class="text-grey-darken-1">
+            <v-btn nuxt to='/' class="hidden-xs" color=''><span class="custom-first-letter">TOP</span></v-btn>
+            <v-btn nuxt to='/about' class="hidden-xs" color=''><span class="custom-first-letter">ABOUT</span></v-btn>
+            <v-btn nuxt to='/works' class="hidden-xs" color=''><span class="custom-first-letter">WORKS</span></v-btn>
           <v-app-bar-nav-icon class="hidden-sm-and-up" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+        </div>
         </template>
       </v-app-bar>
       <v-navigation-drawer

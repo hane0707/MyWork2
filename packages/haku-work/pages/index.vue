@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="text-grey-darken-3">
     <!-- 各コンポーネント呼び出し -->
     <MainKeyvisual />
     <section class="section-area about">

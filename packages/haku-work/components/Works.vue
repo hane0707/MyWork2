@@ -1,6 +1,6 @@
 <template>
   <v-container class="my-5">
-    <div class="text-2xl">
+    <div class="my-5 text-2xl border1999 border1999-2">
       <p class="custom-first-letter">WORKS</p>
     </div>
     <v-slide-group show-arrows>

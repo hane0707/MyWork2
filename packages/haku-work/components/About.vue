@@ -1,6 +1,6 @@
 <template>
   <v-container class="my-5">
-    <div class="text-2xl">
+    <div class="my-5 text-2xl border1999 border1999-1">
       <p class="custom-first-letter">ABOUT</p>
     </div>
     <NuxtLink
@@ -10,3 +10,6 @@
     </NuxtLink>
   </v-container>
 </template>
+
+<style>
+</style>
