@@ -1,9 +1,11 @@
 <template>
-  <v-container>
-    <p class="text-2xl">About</p>
+  <v-container class="my-5">
+    <div class="text-2xl">
+      <p class="custom-first-letter">ABOUT</p>
+    </div>
     <NuxtLink
       to='/about'
-      class="my-2 text-sm underline underline-offset-1 hover:text-gray-600/50 transition-all duration-500 ease-out"
+      class="my-2 text-sm custom-textlink hover:custom-textlink-hover"
     >View all…
     </NuxtLink>
   </v-container>

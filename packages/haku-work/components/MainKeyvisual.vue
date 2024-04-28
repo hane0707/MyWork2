@@ -1,7 +1,7 @@
 <template>
-  <v-container fluid class="main-visual h-svh">
+  <v-container fluid class="main-visual h-svh mb-20">
     <div class="slider" v-for="(image, i) in images" :key="i">
-      <img :class="{ show: currentImageId == i }" :src="image" />
+      <img :class="{ show: currentImageId == i }" class="slider-image" :src="image" />
     </div>
 </v-container>
 </template>
@@ -43,7 +43,7 @@ export default {
   width: 100%;
   height: 100%;
 }
-img {
+.slider-image {
   width: 100%;
   height: 100%;
   object-fit: cover;

@@ -1,21 +1,72 @@
 <template>
-  <v-container>
-    <p class="text-2xl">Works</p>
-    <v-card
-      class="mx-auto"
-      max-width="36vh"
-      height="28vh"
-      color="surface-variant"
-      image="https://cdn.vuetifyjs.com/docs/images/cards/dark-beach.jpg"
-      subtitle="Take a walk down the beach"
-      title="Evening sunset"
-      nuxt to="/works"
-    >
-    </v-card>
+  <v-container class="my-5">
+    <div class="text-2xl">
+      <p class="custom-first-letter">WORKS</p>
+    </div>
+    <v-slide-group show-arrows>
+      <v-slide-group-item v-for="slide in slideContents">
+        <v-card
+          class="mr-5 w-60 h-60"
+          :title="slide.title"
+          :subtitle="slide.contents"
+          nuxt to="/works"
+        >
+        <v-img cover :src="slide.image"></v-img>
+        </v-card>
+      </v-slide-group-item>
+    </v-slide-group>
     <NuxtLink
-      to='/works'
-      class="my-2 text-sm underline underline-offset-1 hover:text-gray-600/50 transition-all duration-500 ease-out"
+      to="/works"
+      class="my-2 text-sm custom-textlink hover:custom-textlink-hover"
     >View all…
     </NuxtLink>
   </v-container>
 </template>
+
+<script>
+export default {
+  data () {
+    return {
+      slideContents: [
+        {
+          title: 'タイトル1',
+          contents: 'コンテンツ',
+          image: "/img/temp4.jpg"
+        },
+        {
+          title: 'タイトル2',
+          contents: 'コンテンツ',
+          image: "/img/temp1.jpg"
+        },
+        {
+          title: 'タイトル3',
+          contents: 'コンテンツ',
+          image: "/img/temp2.jpg"
+        },
+        {
+          title: 'タイトル4',
+          contents: 'コンテンツ',
+          image: "/img/temp3.jpg"
+        },
+        {
+          title: 'タイトル5',
+          contents: 'コンテンツ',
+          image: "/img/temp4.jpg"
+        },
+        {
+          title: 'タイトル6',
+          contents: 'コンテンツ',
+          image: "/img/temp1.jpg"
+        },
+        {
+          title: 'タイトル7',
+          contents: 'コンテンツ',
+          image: "/img/temp2.jpg"
+        }
+      ]
+    }
+  }
+}
+</script>
+<style>
+</style>

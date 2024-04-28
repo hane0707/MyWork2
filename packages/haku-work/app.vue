@@ -1,7 +1,7 @@
 <template>
-  <v-app>
+  <v-app class="text-gray-600 text-base">
     <NuxtLayout>
-      <v-main class="text-gray-600">
+      <v-main>
         <NuxtPage />
       </v-main>
     </NuxtLayout>
