@@ -1,24 +1,37 @@
 <template>
-  <v-app>
-    <footer class="footer">
-      <div class="container">
-        <p>
-          <small>haku-works</small>
-        </p>
-        <p v-show="windowHeight > 100" class="top-btn" @click="returnTop">Top</p>
-      </div>
-    </footer>
-  </v-app>
+  <v-footer class="bg-grey-lighten-3">
+    <v-row justify="center" no-gutters class="text-grey-darken-1">
+      <v-btn
+        v-for="link in links"
+        :key="link"
+        class="mx-2"
+        rounded="xl"
+        variant="text"
+      >
+        {{ link }}
+      </v-btn>
+      <v-btn class="top-btn" @click="returnTop">Top</v-btn>
+      <v-col class="text-center mt-4" cols="12">
+        {{ new Date().getFullYear() }} — <strong>Haku-works</strong>
+      </v-col>
+    </v-row>
+  </v-footer>
 </template>
 
 <script>
 export default {
-  data() {
-    return {
+  data: () => ({
+    links: [
+        'TOP',
+        'ABOUT',
+        'WORKS',
+        'Privacy Policy',
+    ],
+    scrollPosition: [{
       headerHeight: "",
       windowHeight: ""
-    };
-  },
+    }],
+  }),
   mounted() {
     window.addEventListener("scroll", this.scrollWindow);
   },

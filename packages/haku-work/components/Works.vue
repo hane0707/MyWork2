@@ -1,6 +1,6 @@
 <template>
   <v-container class="my-5">
-    <div class="my-5 text-2xl border1999 border1999-2">
+    <div class="my-5 text-3xl border1999">
       <p class="custom-first-letter">WORKS</p>
     </div>
     <v-slide-group show-arrows>
@@ -11,7 +11,7 @@
           :subtitle="slide.contents"
           nuxt to="/works"
         >
-        <v-img cover :src="slide.image"></v-img>
+        <v-img cover class="card-image sepia hover:sepia-0" :src="slide.image"></v-img>
         </v-card>
       </v-slide-group-item>
     </v-slide-group>
@@ -68,5 +68,9 @@ export default {
   }
 }
 </script>
-<style>
+
+<style scoped>
+.card-image {
+  transition: all 1s ease-in-out;
+}
 </style>

@@ -38,20 +38,12 @@
     border-bottom: 1px solid;
     bottom: 0;
   }
-  .border1999-1::before {
+  .border1999::before {
     width: 10%;
     left: 0;
   }
-  .border1999-1::after {
+  .border1999::after {
     width: 89.5%;
-    right: 0;  
-  }
-  .border1999-2::before {
-    width: 8%;
-    left: 0;
-  }
-  .border1999-2::after {
-    width: 91.5%;
     right: 0;  
   }
 }

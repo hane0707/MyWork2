@@ -1,9 +1,13 @@
 <template>
-  <v-container fluid class="main-visual h-svh mb-20">
-    <div class="slider" v-for="(image, i) in images" :key="i">
-      <img :class="{ show: currentImageId == i }" class="slider-image" :src="image" />
+  <v-container fluid class="main-visual relative h-svh mb-20">
+    <div class="slider absolute w-full h-full" v-for="(image, i) in images" :key="i">
+      <img
+        class="slider-image w-full h-full object-cover"
+        :class="{ show: currentImageId == i }"
+        :src="image"
+      />
     </div>
-</v-container>
+  </v-container>
 </template>
 
 <script>
@@ -34,19 +38,11 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .main-visual {
-  position: relative;
-}
-.slider {
-  position: absolute;
-  width: 100%;
-  height: 100%;
+  padding: 0;
 }
 .slider-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
   opacity: 0;
   transition: all 1s ease-in-out;
 }

@@ -1,7 +1,7 @@
 <template>
     <header>
       <v-app-bar :elevation="0">
-        <v-app-bar-title><NuxtLink to="/" class="text-4xl text-grey-darken-3">Haku-works</NuxtLink></v-app-bar-title>
+        <v-app-bar-title><NuxtLink to="/" class="text-5xl text-grey-darken-2">Haku-works</NuxtLink></v-app-bar-title>
         <template v-slot:append>
           <div class="text-grey-darken-1">
             <v-btn nuxt to='/' class="hidden-xs" color=''><span class="custom-first-letter">TOP</span></v-btn>
