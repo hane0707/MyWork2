@@ -1,6 +1,6 @@
 <template>
   <div class="shutter"></div>
-  <div class="contents text-grey-darken-2">
+  <div class="contents">
     <!-- 各コンポーネント呼び出し -->
     <MainKeyvisual />
     <section class="section-area about">
@@ -14,7 +14,7 @@
 
 <script>
 export default {
-  head() {
+  head () {
     return {
       title: 'Topページ',
       meta: [{

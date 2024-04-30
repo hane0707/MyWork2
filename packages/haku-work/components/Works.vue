@@ -49,43 +49,27 @@ export default {
     return {
       slideContents: [
         {
-          title: 'タイトル1',
-          contents: 'コンテンツ',
           image: "/img/temp4.jpg"
         },
         {
-          title: 'タイトル2',
-          contents: 'コンテンツ',
           image: "/img/temp5.jpg"
         },
         {
-          title: 'タイトル3',
-          contents: 'コンテンツ',
           image: "/img/temp6.jpg"
         },
         {
-          title: 'タイトル4',
-          contents: 'コンテンツ',
           image: "/img/temp7.jpg"
         },
         {
-          title: 'タイトル5',
-          contents: 'コンテンツ',
           image: "/img/temp8.jpg"
         },
         {
-          title: 'タイトル6',
-          contents: 'コンテンツ',
           image: "/img/temp9.jpg"
         },
         {
-          title: 'タイトル1',
-          contents: 'コンテンツ',
           image: "/img/temp4.jpg"
         },
         {
-          title: 'タイトル2',
-          contents: 'コンテンツ',
           image: "/img/temp5.jpg"
         },
       ]

@@ -47,3 +47,23 @@
     right: 0;  
   }
 }
+
+/* たまにカタカタ揺れる */
+.shake {
+  animation:katakata 5s infinite ease-in-out alternate;
+}
+@keyframes katakata {
+  0% {transform:translate(0, 0) rotate(0deg);}
+  21% {transform:translate(0, 0) rotate(0deg);}
+
+  22% {transform:translate(0, 0) rotate(-3deg);}
+  23% {transform:translate(0, -1px) rotate(0deg);}
+  24% {transform:translate(0, -1px) rotate(3deg);}
+
+  25% {transform:translate(1px, 0) rotate(-2deg);}
+  26% {transform:translate(0, 1px) rotate(0deg);}
+  27% {transform:translate(0, 0) rotate(3deg);}
+
+  28% {transform:translate(0, 0) rotate(0deg);}
+  100% {transform:translate(0, 0) rotate(0deg);}
+}
