@@ -17,8 +17,11 @@ export default {
     currentImageId: 0,
     images: [
         "/img/temp4.jpg",
-        "/img/temp2.jpg",
-        "/img/temp3.jpg"
+        "/img/temp5.jpg",
+        "/img/temp6.jpg",
+        "/img/temp7.jpg",
+        "/img/temp8.jpg",
+        "/img/temp9.jpg",
     ]
   }),
   mounted() { // 5秒ごとに次の画像に

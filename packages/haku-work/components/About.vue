@@ -3,22 +3,27 @@
     <div class="my-5 text-3xl border1999">
       <p class="custom-first-letter">ABOUT</p>
     </div>
-    <v-row>
-      <v-col cols="" class="mr-10 d-flex flex-row justify-center">
-        <v-img class="about-image" :src="aboutImage"></v-img>
-      </v-col>
-      <v-col cols="" class="mr-10">
-        <p class="text-2xl">haku :</p>
-        <p class="text-lg pl-4">リバース1999に登場する展示品を立体化している神秘学家。</p>
-        <p class="text-sm pl-4">※掲載作品はリバース1999の二次創作物となります。</p>
-        <br>
-        <NuxtLink
-        to='/about'
-        class="my-2 text-sm pl-4 custom-textlink hover:custom-textlink-hover"
-        >View all…
-        </NuxtLink>  
-      </v-col>
-    </v-row>
+    <v-card class="mx-auto">
+      <v-img
+      class="align-top"
+      :src="aboutImage"
+      max-height="700"
+      cover  
+      >
+        <v-card-text>
+          <div class="text-base">
+            <p>ここでは、私 [haku] の作った2次創作作品の再展示をしています。</p>
+            <p>「なければ作る」を行動指針に、リバース:1999に登場する展示作品を立体化しています。</p>
+          </div>
+          <br>
+          <NuxtLink
+          to='/about'
+          class="my-2 text-sm pl-4 custom-textlink hover:custom-textlink-hover"
+          >View more…
+          </NuxtLink>
+        </v-card-text>
+      </v-img>
+    </v-card>
   </v-container>
 </template>
 
@@ -26,10 +31,13 @@
 export default {
   data: () => ({
     show: true,
-    aboutImage: "/img/temp4.jpg"
+    aboutImage: "/img/temp8.jpg"
   })
 }
 </script>
 
 <style scoped>
+.bg {
+  background-image: url("/img/about-section.jpg");
+}
 </style>

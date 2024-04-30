@@ -3,18 +3,38 @@
     <div class="my-5 text-3xl border1999">
       <p class="custom-first-letter">WORKS</p>
     </div>
-    <v-slide-group show-arrows>
-      <v-slide-group-item v-for="slide in slideContents">
-        <v-card
-          class="mr-5 w-60 h-60"
-          :title="slide.title"
-          :subtitle="slide.contents"
-          nuxt to="/works"
+    <v-row>
+      <v-col
+      v-for="slide in slideContents"
+        class="d-flex child-flex"
+        :key="n"
+        cols="12"
+        xs="12"
+        sm="4"
+        lg="3"
+      >
+        <v-img
+          :lazy-src="`https://picsum.photos/10/6?image=${n * 5 + 10}`"
+          :src="slide.image"
+          aspect-ratio="1"
+          class="bg-grey-lighten-2 card-image sepia hover:sepia-0"
+          cover
         >
-        <v-img cover class="card-image sepia hover:sepia-0" :src="slide.image"></v-img>
-        </v-card>
-      </v-slide-group-item>
-    </v-slide-group>
+          <template v-slot:placeholder>
+            <v-row
+              align="center"
+              class="fill-height ma-0"
+              justify="center"
+            >
+              <v-progress-circular
+                color="grey-lighten-5"
+                indeterminate
+              ></v-progress-circular>
+            </v-row>
+          </template>
+        </v-img>
+      </v-col>
+    </v-row>
     <NuxtLink
       to="/works"
       class="my-2 text-sm custom-textlink hover:custom-textlink-hover"
@@ -36,33 +56,38 @@ export default {
         {
           title: 'タイトル2',
           contents: 'コンテンツ',
-          image: "/img/temp1.jpg"
+          image: "/img/temp5.jpg"
         },
         {
           title: 'タイトル3',
           contents: 'コンテンツ',
-          image: "/img/temp2.jpg"
+          image: "/img/temp6.jpg"
         },
         {
           title: 'タイトル4',
           contents: 'コンテンツ',
-          image: "/img/temp3.jpg"
+          image: "/img/temp7.jpg"
         },
         {
           title: 'タイトル5',
           contents: 'コンテンツ',
-          image: "/img/temp4.jpg"
+          image: "/img/temp8.jpg"
         },
         {
           title: 'タイトル6',
           contents: 'コンテンツ',
-          image: "/img/temp1.jpg"
+          image: "/img/temp9.jpg"
         },
         {
-          title: 'タイトル7',
+          title: 'タイトル1',
           contents: 'コンテンツ',
-          image: "/img/temp2.jpg"
-        }
+          image: "/img/temp4.jpg"
+        },
+        {
+          title: 'タイトル2',
+          contents: 'コンテンツ',
+          image: "/img/temp5.jpg"
+        },
       ]
     }
   }
@@ -71,6 +96,6 @@ export default {
 
 <style scoped>
 .card-image {
-  transition: all 1s ease-in-out;
+  transition: all 0.6s ease-in-out;
 }
 </style>
