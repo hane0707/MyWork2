@@ -34,7 +34,7 @@ export default {
   left:0;
   right:0;
   bottom:0;
-  background-color:#57486c;
+  background-image: url("/img/bg-img.png");
   z-index:9999;
 }
 .shutter::before {

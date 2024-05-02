@@ -1,23 +1,23 @@
 <template>
-  <v-container class="my-5">
+  <v-container class="fadein my-5">
     <div class="my-5 text-3xl border1999">
       <p class="custom-first-letter">WORKS</p>
     </div>
     <v-row>
       <v-col
-      v-for="(slide, index) in slideContents"
-        :key="n"
+      v-for="(work, index) in worksContents"
+        :key="index"
         class="d-flex child-flex"
         :class="[index == 1 ? 'shake' : '']"
-        cols="12"
-        xs="12"
+        cols="6"
+        xs="6"
         sm="4"
         lg="3"
       >
         <div class="image-frame w-full h-full">
           <v-img
             :lazy-src="`https://picsum.photos/10/6?image=${n * 5 + 10}`"
-            :src="slide.image"
+            :src="work.image"
             aspect-ratio="1"
             class="bg-grey-lighten-2 work-image"
             cover
@@ -56,7 +56,7 @@ export default {
   },
   data () {
     return {
-      slideContents: [
+      worksContents: [
         {
           title: "タイトル1",
           text: "紹介文が入ります。",

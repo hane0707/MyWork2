@@ -5,17 +5,17 @@
     </div>
     <v-row>
       <v-col
-      v-for="slide in slideContents"
+      v-for="(work, index) in worksContents"
         class="d-flex child-flex"
-        :key="n"
-        cols="12"
-        xs="12"
+        :key="index"
+        cols="6"
+        xs="6"
         sm="4"
         lg="3"
       >
         <v-img
-          :lazy-src="`https://picsum.photos/10/6?image=${n * 5 + 10}`"
-          :src="slide.image"
+          :lazy-src="`https://picsum.photos/10/6?image=${index * 5 + 10}`"
+          :src="work.image"
           aspect-ratio="1"
           class="bg-grey-lighten-2 card-image sepia hover:sepia-0"
           cover
@@ -47,7 +47,7 @@
 export default {
   data () {
     return {
-      slideContents: [
+      worksContents: [
         {
           image: "/img/temp4.jpg"
         },

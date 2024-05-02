@@ -1,5 +1,5 @@
 <template>
-  <v-container class="my-5">
+  <v-container class="fadein my-5">
     <div class="my-5 text-3xl border1999">
       <p class="custom-first-letter">ABOUT</p>
     </div>
