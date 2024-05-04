@@ -10,7 +10,9 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@firebase/firestore-types": "^3.0.1",
     "@mdi/font": "^7.4.47",
+    "firebase": "^10.11.1",
     "nuxt": "^3.11.2",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0"

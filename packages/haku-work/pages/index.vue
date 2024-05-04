@@ -1,5 +1,7 @@
 <template>
-  <div class="shutter"></div>
+  <div class="shutter">
+    <img :src="image" alt="" class="w-full h-full object-cover">
+  </div>
   <div class="contents">
     <!-- 各コンポーネント呼び出し -->
     <MainKeyvisual />
@@ -24,6 +26,9 @@ export default {
       }]
     }
   },
+  data: () => ({
+    image: "/img/1999bg_opacity75.png",
+  }),
 }
 </script>
 
@@ -34,7 +39,7 @@ export default {
   left:0;
   right:0;
   bottom:0;
-  background-image: url("/img/bg-img.png");
+  background-color: #837197;
   z-index:9999;
 }
 .shutter::before {
@@ -49,15 +54,15 @@ export default {
   height: 1px;
 }
 .shutter {
-  -webkit-animation: byeShutter 2.6s forwards;
-          animation: byeShutter 2.6s forwards;
+  -webkit-animation: byeShutter 3s forwards;
+          animation: byeShutter 3s forwards;
 }
 .shutter::before {
   -webkit-animation: shutterOpen 2.6s forwards;
           animation: shutterOpen 2.6s forwards;
 }
 @keyframes byeShutter {
-  70% {
+  80% {
     opacity: 1;
   }
   100% {

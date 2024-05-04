@@ -1,5 +1,5 @@
 <template>
-  <v-container class="fadein my-5">
+  <v-container class="my-5">
     <div class="my-5 text-3xl border1999">
       <p class="custom-first-letter">ABOUT</p>
     </div>
@@ -13,7 +13,7 @@
         <v-card-text>
           <div class="text-base">
             <p>ここでは、私 [haku] の作った2次創作作品の再展示をしています。</p>
-            <p>「なければ作る」を行動指針に、リバース:1999に登場する展示作品を立体化しています。</p>
+            <p>「なければ作る」を行動指針に、リバース:1999に登場する芸術品を立体化しています。</p>
           </div>
           <br>
           <NuxtLink
@@ -30,7 +30,6 @@
 <script>
 export default {
   data: () => ({
-    show: true,
     aboutImage: "/img/temp8.jpg"
   })
 }
