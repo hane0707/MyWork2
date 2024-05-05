@@ -11,7 +11,7 @@
       cover  
       >
         <v-card-text>
-          <div class="text-base">
+          <div class="about-text fl-1999 text-base">
             <p>ここでは、私 [haku] の作った2次創作作品の再展示をしています。</p>
             <p>「なければ作る」を行動指針に、リバース:1999に登場する芸術品を立体化しています。</p>
           </div>

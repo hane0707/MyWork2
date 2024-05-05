@@ -14,7 +14,7 @@
         </v-avatar>
       </v-layout>
       <v-container class="textarea">
-        <v-card-text class="text text-left">
+        <v-card-text class="about-text fl-1999 text-left">
           <p>リバース:1999に登場する芸術品を、2次創作として私[haku] が立体化しここで再展示しています。</p>
           <br>
           <p>ここにいる間は、<ruby>神秘学家<rt>アルカニスト</rt></ruby>界で稀有な才能を持つタイムキーパーのスーツケースと同様、雨を気にせずにお過ごしいただけます。</p>
@@ -47,18 +47,16 @@ export default {
 
 </script>
 
-<style>
+<style scoped>
 .textarea {
   max-width: 720px;
   min-height: 340px;
 }
-.text {
+.about-text {
   font-weight: 900;
   letter-spacing: 0.015em;
 }
-.text::first-letter {
+.fl-1999::first-letter {
   font-size:1.4em;
-  color: red;
 }
-
 </style>
