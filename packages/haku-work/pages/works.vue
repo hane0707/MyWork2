@@ -5,7 +5,7 @@
     </div>
     <v-row>
       <v-col
-      v-for="(work, index) in worksContents"
+        v-for="(work, index) in worksContents"
         :key="index"
         class="d-flex child-flex"
         :class="[index == 1 ? 'shake' : '']"
