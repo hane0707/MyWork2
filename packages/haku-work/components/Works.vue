@@ -1,7 +1,7 @@
 <template>
   <v-container class="my-5">
     <div class="my-5 text-3xl border1999">
-      <p class="custom-first-letter">WORKS</p>
+      <p class="fl-1999">WORKS</p>
     </div>
     <v-row>
       <v-col
@@ -79,6 +79,9 @@ export default {
 </script>
 
 <style scoped>
+.fl-1999::first-letter {
+  padding:0 0 0 0.3em;
+}
 .card-image {
   transition: all 0.6s ease-in-out;
 }

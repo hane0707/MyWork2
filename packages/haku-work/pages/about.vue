@@ -1,7 +1,7 @@
 <template>
   <v-container class="fadein my-5">
     <div class="my-5 text-3xl border1999 text-center">
-      <p class="custom-first-letter">ABOUT</p>
+      <p class="fl-1999">ABOUT</p>
     </div>
     <v-card variant="flat">
       <v-layout class="d-flex justify-center">
@@ -14,7 +14,7 @@
         </v-avatar>
       </v-layout>
       <v-container class="textarea">
-        <v-card-text class="about-text fl-1999 text-left">
+        <v-card-text class="about-text text-left">
           <p>リバース:1999に登場する芸術品を、2次創作として私[haku] が立体化しここで再展示しています。</p>
           <br>
           <p>ここにいる間は、<ruby>神秘学家<rt>アルカニスト</rt></ruby>界で稀有な才能を持つタイムキーパーのスーツケースと同様、雨を気にせずにお過ごしいただけます。</p>
@@ -48,6 +48,9 @@ export default {
 </script>
 
 <style scoped>
+.fl-1999::first-letter {
+  padding:0 0 0 0.6em;
+}
 .textarea {
   max-width: 720px;
   min-height: 340px;
@@ -56,7 +59,8 @@ export default {
   font-weight: 900;
   letter-spacing: 0.015em;
 }
-.fl-1999::first-letter {
+.about-text::first-letter {
   font-size:1.4em;
+  color: red;
 }
 </style>

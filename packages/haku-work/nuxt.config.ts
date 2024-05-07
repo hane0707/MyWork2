@@ -23,6 +23,9 @@ export default defineNuxtConfig({
   build: {
     transpile: ["vuetify"]
   },
+  devtools: {
+    enabled: true
+  },
   modules: [
     (_options, nuxt) => {
       nuxt.hooks.hook('vite:extendConfig', (config) => {
@@ -30,6 +33,7 @@ export default defineNuxtConfig({
         config.plugins.push(vuetify({ autoImport: true }))
       })
     },
+    '@pinia/nuxt'
   ],
   vite: {
     vue: {

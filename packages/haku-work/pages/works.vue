@@ -1,12 +1,12 @@
 <template>
   <v-container class="fadein my-5">
     <div class="my-5 text-3xl border1999 text-center">
-      <p class="custom-first-letter">WORKS</p>
+      <p class="fl-1999">WORKS</p>
     </div>
     <v-row>
       <v-col
-        v-for="(work, index) in worksContents"
-        :key="index"
+        v-for="(work, index) in works"
+        :key="work.id"
         class="d-flex child-flex"
         :class="[index == 1 ? 'shake' : '']"
         cols="6"
@@ -43,99 +43,23 @@
   </v-container>
 </template>
 
-<script>
-let overlay;
+<script setup lang="ts">
+import { onMounted, ref } from 'vue';
+import { storeToRefs } from 'pinia';
+import { useWorksStore } from '@/store/works'
 
-export default {
-  head () {
-    return {
-      title: "Works",
-      meta: [{
-        hid: "description",
-        name: "description",
-        content: "作品の一覧ページ。",
-      }]
-    }
-  },
-  // created() {
-  //   this.$store.dispatch('fetchWorks')
-  // },
-  data () {
-    return {
-      absolute: true,
-      overlay: false,
-      worksContents: [
-        {
-          id: "1",
-          title: "タイトル1",
-          text: "紹介文が入ります。",
-          material: "素材名が入ります。",
-          createDate: "",
-          image: "/img/temp4.jpg"
-        },
-        {
-          id: "2",
-          title: "タイトル2",
-          text: "紹介文が入ります。",
-          material: "素材名が入ります。",
-          createDate: "",
-          image: "/img/temp5.jpg"
-        },
-        {
-          id: "3",
-          title: "タイトル3",
-          text: "紹介文が入ります。",
-          material: "素材名が入ります。",
-          createDate: "",
-          image: "/img/temp6.jpg"
-        },
-        {
-          id: "4",
-          title: "タイトル4",
-          text: "紹介文が入ります。",
-          material: "素材名が入ります。",
-          createDate: "",
-          image: "/img/temp7.jpg"
-        },
-        {
-          id: "5",
-          title: "タイトル5",
-          text: "紹介文が入ります。",
-          material: "素材名が入ります。",
-          createDate: "",
-          image: "/img/temp8.jpg"
-        },
-        {
-          id: "6",
-          title: "タイトル6",
-          text: "紹介文が入ります。",
-          material: "素材名が入ります。",
-          createDate: "",
-          image: "/img/temp9.jpg"
-        },
-        {
-          id: "7",
-          title: "タイトル1",
-          text: "紹介文が入ります。",
-          material: "素材名が入ります。",
-          createDate: "",
-          image: "/img/temp4.jpg"
-        },
-        {
-          id: "8",
-          title: "タイトル2",
-          text: "紹介文が入ります。",
-          material: "素材名が入ります。",
-          createDate: "",
-          image: "/img/temp5.jpg"
-        },
-      ]
-    }
-  },
-}
+const { works } = storeToRefs(useWorksStore());
+const { getWorks } = useWorksStore();
+
+onMounted(() => {
+  getWorks();
+});
 </script>
 
 <style scoped>
+.fl-1999::first-letter {
+  padding:0 0 0 0.3em;
+}
 .image-frame {
   overflow: hidden;
 }
