@@ -1,7 +1,7 @@
 <template>
   <v-container class="fadein my-5">
     <div class="my-5 text-3xl border1999">
-      <p class="custom-first-letter">{{works[id].title}}</p>
+      <p class="fl-1999">{{works[id].title}}</p>
     </div>
     <v-row class="mx-auto w-full h-full">
       <v-col
@@ -20,7 +20,7 @@
         </img>
       </v-col>
       <v-col>
-        <div class="p-8">{{works[id].description}}</div>
+        <div class="p-8 max-w-2xl">{{works[id].description}}</div>
         <div class="text-xl">本源</div>
         <div class="text-base pl-4 pb-4">{{works[id].material}}</div>
         <div class="text-xl">展示開始日</div>
@@ -63,6 +63,9 @@ const id = parseInt(route.params.id, 10)-1;
 </script>
 
 <style scoped>
+.fl-1999::first-letter {
+  padding:0 0 0 0.3em;
+}
 .work-image {
   transition: all 0.6s ease-in-out;
   margin-bottom: 20px;
