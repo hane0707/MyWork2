@@ -7,7 +7,10 @@
             <v-btn nuxt to='/' class="hidden-xs"><span class="fl-nomal">TOP</span></v-btn>
             <v-btn nuxt to='/about' class="hidden-xs"><span class="fl-nomal">ABOUT</span></v-btn>
             <v-btn nuxt to='/works' class="hidden-xs"><span class="fl-nomal">WORKS</span></v-btn>
-          <v-app-bar-nav-icon class="hidden-sm-and-up" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+            <v-btn variant="text" class="hidden-sm-and-up" @click.stop="drawer = !drawer">
+              <img :src="image" class="w-8"></img>
+            </v-btn>
+          <!-- <v-app-bar-nav-icon class="hidden-sm-and-up" @click.stop="drawer = !drawer"></v-app-bar-nav-icon> -->
         </div>
         </template>
       </v-app-bar>
@@ -28,11 +31,10 @@
 
 <script>
 export default {
-  data () {
-    return {
-      drawer: null,
-    }
-  }
+  data: () => ({
+    drawer: null,
+    image: "/img/navigation1999.svg",
+  }),
 }
 </script>
 

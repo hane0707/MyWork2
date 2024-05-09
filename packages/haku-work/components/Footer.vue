@@ -1,11 +1,16 @@
 <template>
   <v-footer class="bg-grey-lighten-3">
     <v-row justify="center" no-gutters class="text-grey-darken-1">
-      <v-btn nuxt to='/' class="hidden-xs text-sm" variant="text" color=''><span class="custom-first-letter">TOP</span></v-btn>
-      <v-btn nuxt to='/about' class="hidden-xs" variant="text" color=''><span class="custom-first-letter">ABOUT</span></v-btn>
-      <v-btn nuxt to='/works' class="hidden-xs" variant="text" color=''><span class="custom-first-letter">WORKS</span></v-btn>
+      <v-col sm="12" lg="4">
+        <a href="https://twitter.com/haku_craft1999" target="_blank" class=""><img src="/img/x-logo.png" class="w-10 h-auto bg-slate-200 rounded-2xl p-2"></img></a>
+      </v-col>
+      <v-col cols="5" class="hidden-xs">
+        <v-btn nuxt to='/' variant="text"><span class="fl-nomal">TOP</span></v-btn>
+        <v-btn nuxt to='/about' variant="text"><span class="fl-nomal">ABOUT</span></v-btn>
+        <v-btn nuxt to='/works' variant="text"><span class="fl-nomal">WORKS</span></v-btn>
+      </v-col>
       <v-col class="text-center mt-4" cols="12">
-        {{ new Date().getFullYear() }} — <strong>Haku-works</strong>
+        <p>© 2024 Haku-works</p>
       </v-col>
     </v-row>
     <v-btn justify="right" class="top-btn" icon="mdi-chevron-double-up" @click="returnTop"></v-btn>
@@ -37,3 +42,6 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+</style>

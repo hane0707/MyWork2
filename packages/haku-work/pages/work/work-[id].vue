@@ -62,7 +62,12 @@
           </template>
         </v-img>
       </v-col>
-    </v-row>
+      <v-col cols="12" class="text-grey-darken-1">
+        <v-btn nuxt to='/works' prepend-icon="mdi-chevron-left" class="">
+          <span class="fl-nomal">WORKS</span>
+        </v-btn>
+      </v-col>
+</v-row>
   </v-container>
 </template>
 
@@ -70,7 +75,6 @@
 import { onMounted, ref } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useWorksStore } from '@/store/works'
-// const store = useWorksStore()
 
 const route = useRoute();
 const id = parseInt(route.params.id, 10)-1;
