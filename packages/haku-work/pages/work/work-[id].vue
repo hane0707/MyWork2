@@ -1,7 +1,7 @@
 <template>
   <v-container class="fadein my-5">
     <div class="my-5 text-3xl border1999">
-      <p class="fl-1999">{{works[id].title}}</p>
+      <p class="fl-1999">{{workDetail.title}}</p>
     </div>
     <v-row class="mx-auto w-full h-full">
       <v-col
@@ -13,21 +13,56 @@
       >
         <img
           :lazy-src="`https://picsum.photos/10/6?image=15`"
-          :src="works[id].image"
+          :src="workDetail.image"
           :max-width="700"
           class="bg-grey-lighten-2 work-image"
         >
         </img>
       </v-col>
-      <v-col>
-        <div class="p-8 max-w-2xl">{{works[id].description}}</div>
+      <v-col
+        cols="12"
+        xs="12"
+        sm="12"
+        lg="6"
+      >
+        <div class="p-8 max-w-2xl">{{workDetail.description}}</div>
         <div class="text-xl">本源</div>
-        <div class="text-base pl-4 pb-4">{{works[id].material}}</div>
+        <div class="text-base pl-4 pb-4">{{workDetail.material}}</div>
         <div class="text-xl">展示開始日</div>
-        <div class="text-base pl-4">{{works[id].created_at}}</div>
+        <div class="text-base pl-4">{{workDetail.created_at}}</div>
+      </v-col>
+      
+      <v-col
+        v-for="(ga_image, index) in workDetail.gallery_images"
+        :key="index"
+        class="d-flex child-flex"
+        cols="6"
+        xs="6"
+        sm="4"
+        lg="3"
+      >
+        <v-img
+        :lazy-src="`https://picsum.photos/10/6?image=${index * 5 + 10}`"
+        :src="ga_image"
+        aspect-ratio="1"
+        class="bg-grey-lighten-2"
+        cover
+        >
+          <template v-slot:placeholder>
+            <v-row
+              align="center"
+              class="fill-height ma-0"
+              justify="center"
+            >
+              <v-progress-circular
+                color="grey-lighten-5"
+                indeterminate
+              ></v-progress-circular>
+            </v-row>
+          </template>
+        </v-img>
       </v-col>
     </v-row>
-
   </v-container>
 </template>
 
@@ -38,33 +73,18 @@ import { useWorksStore } from '@/store/works'
 // const store = useWorksStore()
 
 const route = useRoute();
-const { works } = storeToRefs(useWorksStore());
 const id = parseInt(route.params.id, 10)-1;
-// const work = works.find(a => (
-//         a.id === work_id
-//       ));
+const { workDetail } = storeToRefs(useWorksStore());
+const { getDetailWork } = useWorksStore();
 
-// export default {
-//   // ダミーデータ
-//   data () {
-//     return {
-//       workContent:
-//         {
-//           title: "ソネット",
-//           text: "紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。",
-//           material: "石膏　石粉粘土　水性ホビーカラー",
-//           createDate: "2023年11月",
-//           image: "/img/temp4.jpg"
-//         },
-//       }
-//     }
-//   }
-
+onMounted(() => {
+  getDetailWork(id);
+});
 </script>
 
 <style scoped>
 .fl-1999::first-letter {
-  padding:0 0 0 0.3em;
+  padding:0 0 0 0.4em;
 }
 .work-image {
   transition: all 0.6s ease-in-out;

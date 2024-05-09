@@ -12,10 +12,14 @@
     100% {opacity: 1}
   }
 
+  .fl-nomal::first-letter {
+    font-size:1.6em;
+  }
   .fl-1999::first-letter {
     background-color: rgb(214, 91, 34);
     border-radius: 100%;
     font-size:1.6em;
+    color: rgb(63, 62, 62);
   }
   
   .custom-textlink {

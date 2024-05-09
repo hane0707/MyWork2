@@ -4,9 +4,9 @@
         <v-app-bar-title><NuxtLink to="/" class="text-xl text-grey-darken-2">Haku-works</NuxtLink></v-app-bar-title>
         <template v-slot:append>
           <div class="text-grey-darken-1">
-            <v-btn nuxt to='/' class="hidden-xs" color=''><span class="custom-first-letter">TOP</span></v-btn>
-            <v-btn nuxt to='/about' class="hidden-xs" color=''><span class="custom-first-letter">ABOUT</span></v-btn>
-            <v-btn nuxt to='/works' class="hidden-xs" color=''><span class="custom-first-letter">WORKS</span></v-btn>
+            <v-btn nuxt to='/' class="hidden-xs"><span class="fl-nomal">TOP</span></v-btn>
+            <v-btn nuxt to='/about' class="hidden-xs"><span class="fl-nomal">ABOUT</span></v-btn>
+            <v-btn nuxt to='/works' class="hidden-xs"><span class="fl-nomal">WORKS</span></v-btn>
           <v-app-bar-nav-icon class="hidden-sm-and-up" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
         </div>
         </template>

@@ -5,12 +5,19 @@ import work from '../api/dummy.js';
 export const useWorksStore = defineStore("works",{
   state: () => ({
     works: [] as Works[],
-    name: "testname"
+    workDetail: [] as Works
   }),
   actions: {
     getWorks() {
       work.getWorks((works) => (this.works = works));
     },
+    getDetailWork(id: number) {
+      this.workDetail = this.works[id];
+      // work.getWorks((works) => (this.workDetail = works[id]));
+    }
+  },
+  persist: {
+    storage: persistedState.sessionStorage,
   },
 });
 
@@ -20,5 +27,6 @@ interface Works {
   material: string,
   description: string,
   created_at: string,
-  url: string
+  image: string,
+  gallery_images: []
 }

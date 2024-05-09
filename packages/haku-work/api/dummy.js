@@ -1,67 +1,75 @@
 const _works = [
   {
-    id: "1",
+    id: 1,
     title: "ソネット",
-    description: "紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。",
+    description: "ソネットの紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。",
     material: "素材名が入ります。",
     created_at: "2023-12-14",
-    image: "/img/temp4.jpg"
+    image: "/img/temp4.jpg",
+    gallery_images: ["/img/sonetto/temp6.jpg", "/img/sonetto/temp7.jpg", "/img/sonetto/temp8.jpg", "/img/sonetto/temp9.jpg", "/img/sonetto/temp10.jpg"]
   },
   {
-    id: "2",
+    id: 2,
     title: "ポルターガイスト",
-    description: "紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。",
+    description: "ポルターガイストの紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。",
     material: "素材名が入ります。",
     created_at: "2023-12-14",
-    image: "/img/temp5.jpg"
+    image: "/img/temp5.jpg",
+    gallery_images: ["/img/sonetto/temp6.jpg", "/img/sonetto/temp7.jpg", "/img/sonetto/temp8.jpg", "/img/sonetto/temp9.jpg", "/img/sonetto/temp10.jpg"]
   },
   {
-    id: "3",
+    id: 3,
     title: "レグルス",
-    description: "紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。",
+    description: "レグルスの紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。",
     material: "素材名が入ります。",
     created_at: "2023-12-14",
-    image: "/img/temp6.jpg"
+    image: "/img/temp6.jpg",
+    gallery_images: ["/img/sonetto/temp6.jpg", "/img/sonetto/temp7.jpg", "/img/sonetto/temp8.jpg", "/img/sonetto/temp9.jpg", "/img/sonetto/temp10.jpg"]
   },
   {
-    id: "4",
+    id: 4,
     title: "ヴェルティ",
-    description: "紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。",
+    description: "ヴェルティの紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。",
     material: "素材名が入ります。",
     created_at: "2023-12-14",
-    image: "/img/temp7.jpg"
+    image: "/img/temp7.jpg",
+    gallery_images: ["/img/sonetto/temp6.jpg", "/img/sonetto/temp7.jpg", "/img/sonetto/temp8.jpg", "/img/sonetto/temp9.jpg", "/img/sonetto/temp10.jpg"]
   },
   {
-    id: "5",
+    id: 5,
     title: "シャーマィン",
-    description: "紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。",
+    description: "シャーマィンの紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。",
     material: "素材名が入ります。",
     created_at: "2023-12-14",
-    image: "/img/temp8.jpg"
+    image: "/img/temp8.jpg",
+    gallery_images: ["/img/sonetto/temp6.jpg", "/img/sonetto/temp7.jpg", "/img/sonetto/temp8.jpg", "/img/sonetto/temp9.jpg", "/img/sonetto/temp10.jpg"]
   },
   {
-    id: "6",
+    id: 6,
     title: "カーバンクル",
-    description: "紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。",
+    description: "カーバンクルの紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。",
     material: "素材名が入ります。",
     created_at: "2023-12-14",
-    image: "/img/temp9.jpg"
+    image: "/img/temp9.jpg",
+    gallery_images: ["/img/sonetto/temp6.jpg", "/img/sonetto/temp7.jpg", "/img/sonetto/temp8.jpg", "/img/sonetto/temp9.jpg", "/img/sonetto/temp10.jpg"]
   },
   {
-    id: "7",
+    id: 7,
     title: "クインシー",
-    description: "紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。",
+    description: "クインシーの紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。",
     material: "素材名が入ります。",
     created_at: "2023-12-14",
-    image: "/img/temp4.jpg"
+    image: "/img/temp4.jpg",
+    gallery_images: ["/img/sonetto/temp6.jpg", "/img/sonetto/temp7.jpg", "/img/sonetto/temp8.jpg", "/img/sonetto/temp9.jpg", "/img/sonetto/temp10.jpg"]
   },
   {
-    id: "8",
+    id: 8,
     title: "コーンブルメ",
-    description: "紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。",
+    description: "コーンブルメの紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。紹介文が入ります。",
     material: "素材名が入ります。",
     created_at: "2023-12-14",
-    image: "/img/temp5.jpg"
+    image: "/img/temp5.jpg",
+    gallery_images: ["/img/sonetto/temp6.jpg", "/img/sonetto/temp7.jpg", "/img/sonetto/temp8.jpg", "/img/sonetto/temp9.jpg", "/img/sonetto/temp10.jpg"]
   },
 ];
 

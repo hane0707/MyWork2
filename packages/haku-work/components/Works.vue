@@ -60,7 +60,7 @@ onMounted(() => {
 
 <style scoped>
 .fl-1999::first-letter {
-  padding:0 0 0 0.3em;
+  padding:0 0 0 0.4em;
 }
 .card-image {
   transition: all 0.6s ease-in-out;

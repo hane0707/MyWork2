@@ -49,7 +49,7 @@ export default {
 
 <style scoped>
 .fl-1999::first-letter {
-  padding:0 0 0 0.6em;
+  padding:0 0 0 0.7em;
 }
 .textarea {
   max-width: 720px;

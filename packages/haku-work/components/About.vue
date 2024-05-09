@@ -5,10 +5,10 @@
     </div>
     <v-card class="mx-auto">
       <v-img
-      class="align-top"
-      :src="aboutImage"
-      max-height="700"
-      cover  
+        class="align-top"
+        :src="aboutImage"
+        max-height="700"
+        cover  
       >
         <v-card-text>
           <div class="about-text text-base">
@@ -37,7 +37,7 @@ export default {
 
 <style scoped>
 .fl-1999::first-letter {
-  padding:0 0 0 0.6em;
+  padding:0 0 0 0.7em;
 }
 .bg {
   background-image: url("/img/about-section.jpg");
