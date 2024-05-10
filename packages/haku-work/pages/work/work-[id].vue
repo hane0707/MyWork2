@@ -25,6 +25,7 @@
         sm="12"
         lg="6"
       >
+        <div class="text-xl pt-4">{{workDetail.title_en}} / {{workDetail.title_cn}}</div>
         <div class="p-8 max-w-2xl">{{workDetail.description}}</div>
         <div class="text-xl">本源</div>
         <div class="text-base pl-4 pb-4">{{workDetail.material}}</div>

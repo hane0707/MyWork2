@@ -10,7 +10,6 @@
             <v-btn variant="text" class="hidden-sm-and-up" @click.stop="drawer = !drawer">
               <img :src="image" class="w-8"></img>
             </v-btn>
-          <!-- <v-app-bar-nav-icon class="hidden-sm-and-up" @click.stop="drawer = !drawer"></v-app-bar-nav-icon> -->
         </div>
         </template>
       </v-app-bar>

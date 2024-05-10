@@ -13,7 +13,6 @@ export const useWorksStore = defineStore("works",{
     },
     getDetailWork(id: number) {
       this.workDetail = this.works[id];
-      // work.getWorks((works) => (this.workDetail = works[id]));
     }
   },
   persist: {
@@ -24,6 +23,8 @@ export const useWorksStore = defineStore("works",{
 interface Works {
   id: string,
   title: string,
+  title_en: string,
+  title_cn: string,
   material: string,
   description: string,
   created_at: string,

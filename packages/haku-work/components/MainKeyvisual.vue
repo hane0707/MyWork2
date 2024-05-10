@@ -1,6 +1,15 @@
 <template>
   <v-container fluid class="main-visual relative h-svh mb-20">
-    <div class="slider absolute w-full h-full" v-for="(image, i) in images" :key="i">
+    <!-- PC用キービジュアル -->
+    <div class="slider absolute w-full h-full hidden-xs" v-for="(image, i) in kv_lg" :key="i">
+      <img
+        class="slider-image w-full h-full object-cover"
+        :class="{ show: currentImageId == i }"
+        :src="image"
+      />
+    </div>
+    <!-- スマホ用キービジュアル -->
+    <div class="slider absolute w-full h-full hidden-sm-and-up" v-for="(image, i) in kv_sm" :key="i">
       <img
         class="slider-image w-full h-full object-cover"
         :class="{ show: currentImageId == i }"
@@ -15,13 +24,15 @@ export default {
   data: () => ({
     show: true,
     currentImageId: 0,
-    images: [
-        "/img/temp4.jpg",
-        "/img/temp5.jpg",
-        "/img/temp6.jpg",
-        "/img/temp7.jpg",
-        "/img/temp8.jpg",
-        "/img/temp9.jpg",
+    kv_lg: [
+      "/img/kv/lg/temp6.jpg",
+      "/img/kv/lg/temp8.jpg",
+      "/img/kv/lg/temp9.jpg",
+    ],
+    kv_sm: [
+      "/img/kv/sm/temp4.jpg",
+      "/img/kv/sm/temp5.jpg",
+      "/img/kv/sm/temp11.jpg",
     ]
   }),
   mounted() { // 5秒ごとに次の画像に
@@ -31,7 +42,7 @@ export default {
   },
   methods: {
     changeNextSlide() { // 表示するcurrentの画像を変えるため、加算していく
-      if (this.currentImageId < this.images.length - 1) {
+      if (this.currentImageId < this.kv_lg.length - 1) {
         this.currentImageId += 1
       } else {
         this.currentImageId = 0
