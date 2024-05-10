@@ -4,13 +4,7 @@
       <p class="fl-1999">{{workDetail.title}}</p>
     </div>
     <v-row class="mx-auto w-full h-full">
-      <v-col
-        class="d-flex child-flex"
-        cols="12"
-        xs="12"
-        sm="12"
-        lg="6"
-      >
+      <v-col class="d-flex child-flex" cols="12" xs="12" sm="12" lg="6">
         <img
           :lazy-src="`https://picsum.photos/10/6?image=15`"
           :src="workDetail.image"
@@ -19,13 +13,9 @@
         >
         </img>
       </v-col>
-      <v-col
-        cols="12"
-        xs="12"
-        sm="12"
-        lg="6"
-      >
+      <v-col cols="12" xs="12" sm="12" lg="6">
         <div class="text-xl pt-4">{{workDetail.title_en}} / {{workDetail.title_cn}}</div>
+        <div class="p-8 max-w-2xl italic">"{{workDetail.voice}}"</div>
         <div class="p-8 max-w-2xl">{{workDetail.description}}</div>
         <div class="text-xl">本源</div>
         <div class="text-base pl-4 pb-4">{{workDetail.material}}</div>
@@ -33,15 +23,7 @@
         <div class="text-base pl-4">{{workDetail.created_at}}</div>
       </v-col>
       
-      <v-col
-        v-for="(ga_image, index) in workDetail.gallery_images"
-        :key="index"
-        class="d-flex child-flex"
-        cols="6"
-        xs="6"
-        sm="4"
-        lg="3"
-      >
+      <v-col v-for="(ga_image, index) in workDetail.gallery_images" :key="index" class="d-flex child-flex" cols="6" xs="6" sm="4" lg="3">
         <v-img
         :lazy-src="`https://picsum.photos/10/6?image=${index * 5 + 10}`"
         :src="ga_image"
