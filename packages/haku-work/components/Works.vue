@@ -13,7 +13,10 @@
         sm="4"
         lg="3"
       >
-        <nuxt-link :to="`/work/work-${work.id}`" class="w-full h-full">
+        <nuxt-link :to="`/work/work-${work.id}`"
+          v-if="index < 8"
+          class="w-full h-full"
+        >
           <v-img
             :lazy-src="`https://picsum.photos/10/6?image=${index * 5 + 10}`"
             :src="work.image"
@@ -37,11 +40,14 @@
         </nuxt-link>
       </v-col>
     </v-row>
-    <NuxtLink
+    <!-- <NuxtLink
       to="/works"
       class="my-2 text-sm custom-textlink hover:custom-textlink-hover"
     >View all…
-    </NuxtLink>
+    </NuxtLink> -->
+    <v-btn nuxt to='/works' prepend-icon="mdi-chevron-right" variant="outlined" class="btn w-full">
+      <span class="fl-nomal">View all WORKS</span>
+    </v-btn>
   </v-container>
 </template>
 
@@ -64,5 +70,8 @@ onMounted(() => {
 }
 .card-image {
   transition: all 0.6s ease-in-out;
+}
+.btn {
+  text-transform: none;
 }
 </style>

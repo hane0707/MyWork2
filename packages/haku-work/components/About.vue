@@ -19,7 +19,7 @@
           <NuxtLink
           to='/about'
           class="my-2 text-sm pl-4 custom-textlink hover:custom-textlink-hover"
-          >View more…
+          >Read more…
           </NuxtLink>
         </v-card-text>
       </v-img>
