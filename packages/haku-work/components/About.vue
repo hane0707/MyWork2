@@ -30,7 +30,7 @@
 <script>
 export default {
   data: () => ({
-    aboutImage: "/img/temp8.jpg"
+    aboutImage: "/img/about_bg.jpg"
   })
 }
 </script>

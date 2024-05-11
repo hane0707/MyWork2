@@ -41,7 +41,7 @@ export default {
     }
   },
   data: () => ({
-    aboutImage: "/img/about-image.jpg"
+    aboutImage: "/img/about_image.jpg"
   })
 }
 
