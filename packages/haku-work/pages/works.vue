@@ -49,6 +49,11 @@ import { storeToRefs } from 'pinia';
 import { useWorksStore } from '@/store/works'
 
 const { works } = storeToRefs(useWorksStore());
+const { getWorks } = useWorksStore();
+
+onMounted(() => {
+  getWorks();
+});
 </script>
 
 <style scoped>

@@ -61,10 +61,13 @@ import { useWorksStore } from '@/store/works'
 
 const route = useRoute();
 const id = parseInt(route.params.id, 10)-1;
+const { works } = storeToRefs(useWorksStore());
 const { workDetail } = storeToRefs(useWorksStore());
+const { getWorks } = useWorksStore();
 const { getDetailWork } = useWorksStore();
 
 onMounted(() => {
+  getWorks();
   getDetailWork(id);
 });
 </script>
