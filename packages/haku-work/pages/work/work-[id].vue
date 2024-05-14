@@ -70,6 +70,10 @@ onMounted(() => {
   getWorks();
   getDetailWork(id);
 });
+
+definePageMeta({
+  middleware: ['redirect']
+})
 </script>
 
 <style scoped>

@@ -80,3 +80,15 @@
   28% {transform:translate(0, 0) rotate(0deg);}
   100% {transform:translate(0, 0) rotate(0deg);}
 }
+
+.error-code {
+  font-size: 6rem;
+  letter-spacing: 0.5rem;
+  text-align: center;
+  line-height: 1;
+  color: pink;
+}
+.error-message {
+  font-weight: lighter;
+  color: antiquewhite;
+}

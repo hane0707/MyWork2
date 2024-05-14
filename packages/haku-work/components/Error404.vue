@@ -1,18 +1,13 @@
 <template>
   <div class="stack">
-    <h1>404</h1>
+    <h1 class="error-code">404</h1>
+    <p class="error-message">{{ error?.message }}</p>
   </div>
 </template>
 
-<script>
+<script setup lang="ts">
+const error = useError();
 </script>
 
 <style scoped>
-h1 {
-  font-size: 6rem;
-  letter-spacing: 0.5rem;
-  text-align: center;
-  line-height: 1;
-  color: pink;
-}
 </style>
