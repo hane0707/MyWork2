@@ -81,6 +81,10 @@
   100% {transform:translate(0, 0) rotate(0deg);}
 }
 
+.carbuncle-cursor:hover {
+  cursor: url("/img/carbuncle-cursor.png"), auto;
+}
+
 .error-code {
   font-size: 6rem;
   letter-spacing: 0.5rem;

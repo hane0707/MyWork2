@@ -20,7 +20,7 @@
               :lazy-src="`https://picsum.photos/10/6?image=${index * 5 + 10}`"
               :src="work.image"
               aspect-ratio="1"
-              class="bg-grey-lighten-2 work-image"
+              class="bg-grey-lighten-2 work-image carbuncle-cursor"
               cover
             >
               <template v-slot:placeholder>
@@ -44,6 +44,8 @@
 </template>
 
 <script setup lang="ts">
+useHead({ title: 'Works' })
+
 import { onMounted, ref } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useWorksStore } from '@/store/works'

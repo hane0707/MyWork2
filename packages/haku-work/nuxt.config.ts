@@ -54,33 +54,45 @@ export default defineNuxtConfig({
       FIREBASE_MEASUREMENT_ID: process.env.FIREBASE_MEASUREMENT_ID || '',
     },
   },
-  // head: {
-  //   titleTemplate(title: string) {
-  //     return (title ? `${title} | ` : '') + 'haku-works'
-  //   },
-  //   htmlAttrs:{
-  //     lang: 'ja',
-  //     prefix: 'og: http://ogp.me/ns#'
-  //   },
-  //   title: process.env.npm_package_name || '',
-  //   meta: [
-  //     { charset: 'utf-8' },
-  //     { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-  //     { hid: 'description', name: 'description', content: process.env.npm_package_description || '' },
-  //     { hid: 'og:site_name', property: 'og:site_name', content: 'haku-works', },
-  //     { hid: 'og:type', property: 'og:type', content: 'article' },
-  //     { hid: 'og:url', property: 'og:url', content: 'https://haku-work.app.web' },
-  //     { hid: 'og:title', property: 'og:title', content: 'haku-works', },
-  //     { hid: 'og:description', property: 'og:description', content: '主に石膏や粘土で造形した立体物置き場。', },
-  //     // { hid: 'og:image', property: 'og:image', content: 'https://ogp画像への絶対パス' },
-  //     { hid: 'og:locale', content: 'ja_jp' },
-  //     { name: 'twitter:card', content: 'summary' },
-  //     { name: 'twitter:site', content: '@haku-works' },
-  //   ],
-  //   link: [
-  //     { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
-  //     { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Noto+Serif+JP&display=swap' },
-  //     { rel: 'stylesheet', href: 'https://use.fontawesome.com/releases/v5.6.1/css/all.css' }
-  //   ]
-  // },
+  app: {
+    head: {
+      charset: 'utf-16',
+      viewport: 'width=device-width, initial-scale=1',
+      meta: [
+          { name: 'description', content: '当サイトはリバース:1999の2次創作サイトです。ここでは、私 [haku] の作った2次創作作品の再展示をしています。「なければ作る」を行動指針に、リバース:1999に登場する芸術品を立体化しています。' },
+          { property: "og:type", content: "website" },
+          {
+            property: "og:title",
+            content: `${process.env.TITLE} | リバース:1999　2次創作サイト`,
+          },
+          { property: "og:url", content: process.env.BASE_URL },
+          { property: "og:locale", content: "ja_JP" },
+          { property: "og:site_name", content: process.env.TITLE },
+          {
+            property: "og:description",
+            content:
+              "当サイトはリバース:1999の2次創作サイトです。ここでは、私 [haku] の作った2次創作作品の再展示をしています。",
+          },
+          {
+            property: "og:image",
+            content: `${process.env.BASE_URL}/img/sweet_fable.jpg`,
+          },
+          { property: "twitter:card", content: "summary" },
+          { property: "twitter:site", content: process.env.TITLE },
+          {
+            property: "twitter:title",
+            content: `${process.env.TITLE} | リバース:1999　2次創作サイト`,
+          },
+          {
+            property: "twitter:description",
+            content:
+              "当サイトはリバース:1999の二次創作サイトです。ここでは、私 [haku] の作った2次創作作品の再展示をしています。",
+          },
+          {
+            property: "twitter:image",
+            content: `${process.env.BASE_URL}/img/sweet_fable.jpg`,
+          },
+      ],
+    }
+  }
 })

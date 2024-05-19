@@ -8,6 +8,7 @@
         <v-btn nuxt to='/' variant="text"><span class="fl-nomal text-xs mx-5">TOP</span></v-btn>
         <v-btn nuxt to='/about' variant="text"><span class="fl-nomal text-xs mx-5">ABOUT</span></v-btn>
         <v-btn nuxt to='/works' variant="text"><span class="fl-nomal text-xs mx-5">WORKS</span></v-btn>
+        <v-btn nuxt to='/privacy-policy' variant="text"><span class="fl-nomal text-xs mx-5">PRIVACY POLICY</span></v-btn>
       </v-col>
       <v-col sm="12" lg="5" class="d-flex flex-row justify-center">
         <a href="https://twitter.com/haku_craft1999" target="_blank" class="w-10"><img src="/img/x-logo.png" class="w-10 h-auto bg-slate-200 rounded-2xl p-2"></img></a>

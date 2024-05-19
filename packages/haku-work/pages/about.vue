@@ -28,23 +28,9 @@
   </v-container>
 </template>
 
-<script>
-export default {
-  head() {
-    return {
-      title: 'About',
-      meta: [{
-        hid: 'description',
-        name: 'description',
-        content: 'このサイトについて。',
-      }]
-    }
-  },
-  data: () => ({
-    aboutImage: "/img/about_image.jpg"
-  })
-}
-
+<script setup lang="ts">
+useHead({ title: 'About' })
+const aboutImage = "/img/about_image.jpg"
 </script>
 
 <style scoped>

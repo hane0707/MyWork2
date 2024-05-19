@@ -25,14 +25,20 @@ export default {
     show: true,
     currentImageId: 0,
     kv_lg: [
-      "/img/kv/lg/temp6.jpg",
-      "/img/kv/lg/temp8.jpg",
-      "/img/kv/lg/temp9.jpg",
+      "/img/kv/lg/kv1.jpg",
+      "/img/kv/lg/kv2.jpg",
+      "/img/kv/lg/kv3.jpg",
+      "/img/kv/lg/kv4.jpg",
+      "/img/kv/lg/kv5.jpg",
+      "/img/kv/lg/kv6.jpg",
     ],
     kv_sm: [
-      "/img/kv/sm/temp4.jpg",
-      "/img/kv/sm/temp5.jpg",
-      "/img/kv/sm/temp11.jpg",
+      "/img/kv/sm/kv1.jpg",
+      "/img/kv/sm/kv2.jpg",
+      "/img/kv/sm/kv3.jpg",
+      "/img/kv/sm/kv4.jpg",
+      "/img/kv/sm/kv5.jpg",
+      "/img/kv/sm/kv6.jpg",
     ]
   }),
   mounted() { // 5秒ごとに次の画像に

@@ -71,6 +71,10 @@ onMounted(() => {
   getDetailWork(id);
 });
 
+console.log("title:")
+console.log(workDetail.title)
+useHead({ title: workDetail.title })
+
 definePageMeta({
   middleware: ['redirect']
 })
