@@ -51,10 +51,12 @@ import { storeToRefs } from 'pinia';
 import { useWorksStore } from '@/store/works'
 
 const { works } = storeToRefs(useWorksStore());
-const { getWorks } = useWorksStore();
+const { getWorks, getWorksFirestore } = useWorksStore();
 
 onMounted(() => {
-  getWorks();
+  // getWorks(); // ダミーデータから取得に切り替える場合
+  const sort = "desc";
+  getWorksFirestore(sort);
 });
 </script>
 

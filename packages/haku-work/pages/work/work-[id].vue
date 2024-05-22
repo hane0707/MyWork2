@@ -50,7 +50,7 @@
           <span class="fl-nomal">WORKS</span>
         </v-btn>
       </v-col>
-</v-row>
+    </v-row>
   </v-container>
 </template>
 
@@ -60,24 +60,23 @@ import { storeToRefs } from 'pinia';
 import { useWorksStore } from '@/store/works'
 
 const route = useRoute();
-const id = parseInt(route.params.id, 10)-1;
+const id = parseInt(route.params.id, 10);
 const { works } = storeToRefs(useWorksStore());
 const { workDetail } = storeToRefs(useWorksStore());
-const { getWorks } = useWorksStore();
+const { getWorks, getWorksFirestore } = useWorksStore();
 const { getDetailWork } = useWorksStore();
 
 onMounted(() => {
-  getWorks();
+  // getWorks(); // ダミーデータから取得に切り替える場合
   getDetailWork(id);
 });
 
-console.log("title:")
-console.log(workDetail.title)
-useHead({ title: workDetail.title })
+useHead({ title: route.params.id })
 
-definePageMeta({
-  middleware: ['redirect']
-})
+// // ダミーデータから取得に切り替える場合
+// definePageMeta({
+//   middleware: ['redirect']
+// })
 </script>
 
 <style scoped>

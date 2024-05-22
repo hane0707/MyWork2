@@ -40,11 +40,6 @@
         </nuxt-link>
       </v-col>
     </v-row>
-    <!-- <NuxtLink
-      to="/works"
-      class="my-2 text-sm custom-textlink hover:custom-textlink-hover"
-    >View all…
-    </NuxtLink> -->
     <v-btn nuxt to='/works' prepend-icon="mdi-chevron-right" variant="outlined" class="btn w-full">
       <span class="fl-nomal">View all WORKS</span>
     </v-btn>
@@ -54,13 +49,16 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 import { storeToRefs } from 'pinia';
-import { useWorksStore } from '@/store/works'
+import { useWorksStore } from '@/store/works';
 
 const { works } = storeToRefs(useWorksStore());
-const { getWorks } = useWorksStore();
+const { getWorks, getWorksFirestore } = useWorksStore();
 
 onMounted(() => {
-  getWorks();
+  // getWorks(); // ダミーデータから取得に切り替える場合
+  const sort = "desc";
+  const limit_number = 8;
+  getWorksFirestore(sort, limit_number);
 });
 </script>
 
