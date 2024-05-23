@@ -6,6 +6,8 @@ import {
   collection,
   query,
   where,
+  doc,
+  getDoc,
   getDocs,
   orderBy,
   type OrderByDirection,
@@ -40,9 +42,9 @@ export const useWorksStore = defineStore("works",{
       const q = query(collection(db, "chess_works"), orderBy("created_at", sort), limit(limit_number))
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc) => {
-        console.log(id)
         const data = doc.data();
         this.works.push({
+          "doc_name": data.doc_name,
           "id": id.toString(),
           "title": data.title,
           "title_en": data.title_en,
@@ -50,11 +52,10 @@ export const useWorksStore = defineStore("works",{
           "material": data.material,
           "voice": data.voice,
           "description": data.description,
-          "created_at": data.created_at,
+          "created_at": formatDate(data.created_at),
           "image": data.image,
           "gallery_images": data.gallery_images
         })
-        console.log(this.works[id])
         
         id += 1;
       });
@@ -63,11 +64,32 @@ export const useWorksStore = defineStore("works",{
      * チェス駒の詳細ページ表示用のstoreを設定する
      * @param id 
      */
-    getDetailWork(id: number) {
-      if (!this.works.length) {
-        this.getWorksFirestore("desc");
-      }
-      this.workDetail = this.works[id];
+    async getDetailWork(id: number) {
+      // if (!this.works.length) {
+      //   this.getWorksFirestore("desc");
+      // }
+      // this.workDetail = this.works[id];
+
+      // 初期化
+      const db = getFirestore();
+      const undefined_text = "データがありません";
+      const doc_name = this.works[id].doc_name;
+
+      // Firestoreからデータを取得し、storeに格納
+      const docRef = doc(db, "chess_works", doc_name);
+      const docSnap = await getDoc(docRef);
+      const data = docSnap.data();
+      this.workDetail.doc_name = doc_name
+      this.workDetail.id = id.toString();
+      this.workDetail.title = data? data.title : undefined_text;
+      this.workDetail.title_en = data? data.title_en : undefined_text;
+      this.workDetail.title_cn = data? data.title_cn : undefined_text;
+      this.workDetail.material = data? data.material : undefined_text;
+      this.workDetail.voice = data? data.voice : undefined_text;
+      this.workDetail.description = data? data.description : undefined_text;
+      this.workDetail.created_at = data? formatDate(data.created_at) : undefined_text;
+      this.workDetail.image = data? data.image : undefined_text;
+      this.workDetail.gallery_images = data? data.gallery_images : [];
     },
   },
   // storeの永続化
@@ -76,7 +98,19 @@ export const useWorksStore = defineStore("works",{
   },
 });
 
+/**
+ * 日付フォーマットの変換（yyyy-MM-dd　→　yyyy-M-d）
+ * @param date 
+ * @returns 
+ */
+function formatDate(date:string) {
+  const new_date = new Date(date);
+  const new_date_text = `${new_date.getFullYear()}-${new_date.getMonth()}-${new_date.getDate()}`
+  return new_date_text
+}
+
 interface Works {
+  doc_name: string;
   id: string;
   title: string;
   title_en: string;
