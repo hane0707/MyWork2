@@ -40,7 +40,7 @@
         </nuxt-link>
       </v-col>
     </v-row>
-    <v-btn nuxt to='/works' prepend-icon="mdi-chevron-right" variant="outlined" class="btn w-full">
+    <v-btn nuxt to='/works' prepend-icon="mdi-chevron-right" variant="outlined" class="btn w-full my-8" elevation="1">
       <span class="fl-nomal">View all WORKS</span>
     </v-btn>
   </v-container>

@@ -52,10 +52,10 @@ import { useWorksStore } from '@/store/works'
 
 const { works } = storeToRefs(useWorksStore());
 const { getWorks, getWorksFirestore } = useWorksStore();
+const sort = "desc";
 
 onMounted(() => {
   // getWorks(); // ダミーデータから取得に切り替える場合
-  const sort = "desc";
   getWorksFirestore(sort);
 });
 </script>

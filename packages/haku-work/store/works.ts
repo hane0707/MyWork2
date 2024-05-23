@@ -37,7 +37,7 @@ export const useWorksStore = defineStore("works",{
       this.works = []
       
       // Firestoreからデータを取得し、storeに格納
-      const q = query(collection(db, "works"), orderBy("created_at", sort), limit(limit_number))
+      const q = query(collection(db, "chess_works"), orderBy("created_at", sort), limit(limit_number))
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc) => {
         console.log(id)
