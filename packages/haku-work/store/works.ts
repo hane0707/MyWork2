@@ -19,6 +19,7 @@ export const useWorksStore = defineStore("works",{
   state: () => ({
     works: [] as Works[],
     workDetail: {} as Works,
+    sort: "desc" as string
   }),
   actions: {
     /**
@@ -29,17 +30,17 @@ export const useWorksStore = defineStore("works",{
     // },
     /**
      * Firestoreから取得
-     * @param sort ※ソート順（"asc"/"desc"）。デフォルトは"desc"。
+     * @param order_sort ※ソート順（"asc"/"desc"）。デフォルトは"desc"。
      * @param limit_number ※取得件数。デフォルトは1000。
      */
-    async getWorksFirestore(sort: OrderByDirection = "desc", limit_number: number = 1000) {
+    async getWorksFirestore(order_sort: OrderByDirection = "desc", limit_number: number = 1000) {
       // 初期化
       const db = getFirestore();
       let id = 0;
       this.works = []
       
       // Firestoreからデータを取得し、storeに格納
-      const q = query(collection(db, "chess_works"), orderBy("created_at", sort), limit(limit_number))
+      const q = query(collection(db, "chess_works"), orderBy("created_at", order_sort), limit(limit_number))
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc) => {
         const data = doc.data();
@@ -57,6 +58,7 @@ export const useWorksStore = defineStore("works",{
           "gallery_images": data.gallery_images
         })
         
+        this.sort = order_sort
         id += 1;
       });
     },
@@ -65,11 +67,6 @@ export const useWorksStore = defineStore("works",{
      * @param id 
      */
     async getDetailWork(id: number) {
-      // if (!this.works.length) {
-      //   this.getWorksFirestore("desc");
-      // }
-      // this.workDetail = this.works[id];
-
       // 初期化
       const db = getFirestore();
       const undefined_text = "データがありません";

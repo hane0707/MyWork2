@@ -3,6 +3,9 @@
     <div class="my-5 text-3xl border1999 text-center">
       <p class="fl-1999">WORKS</p>
     </div>
+    <div class="mb-4 flex flex-row-reverse">
+      <v-btn @click="sortChange()" variant="text" prepend-icon="mdi-swap-vertical">sort works</v-btn>
+    </div>
     <v-row>
       <v-col
         v-for="(work, index) in works"
@@ -50,14 +53,21 @@ import { onMounted, ref } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useWorksStore } from '@/store/works'
 
-const { works } = storeToRefs(useWorksStore());
+const { works, sort } = storeToRefs(useWorksStore());
 const { getWorks, getWorksFirestore } = useWorksStore();
-const sort = "desc";
 
 onMounted(() => {
   // getWorks(); // ダミーデータから取得に切り替える場合
-  getWorksFirestore(sort);
+  getWorksFirestore("desc");
 });
+
+/**
+ * worksの表示順変更
+*/
+function sortChange() {
+  const changed_sort = (sort.value === "desc") ? "asc" : "desc";
+  getWorksFirestore(changed_sort);
+}
 </script>
 
 <style scoped>
