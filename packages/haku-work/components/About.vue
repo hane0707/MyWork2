@@ -27,12 +27,8 @@
   </v-container>
 </template>
 
-<script>
-export default {
-  data: () => ({
-    aboutImage: "/img/about_bg.jpg"
-  })
-}
+<script setup lang="ts">
+const aboutImage = "/img/about_bg.jpg";
 </script>
 
 <style scoped>

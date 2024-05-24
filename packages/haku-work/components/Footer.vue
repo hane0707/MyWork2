@@ -21,30 +21,18 @@
   </v-footer>
 </template>
 
-<script>
-export default {
-  data: () => ({
-  }),
-  mounted() {
-    window.addEventListener("scroll", this.scrollWindow);
-  },
-  methods: {
-    scrollWindow() {
-      this.windowHeight = window.scrollY;
-    },
-    returnTop() {
-      const duration = 400; // 移動速度
-      const interval = 10; // 移動間隔
-      const step = -window.scrollY / Math.ceil(duration / interval); // 1回に移動する距離
-      const timer = setInterval(() => {
-        window.scrollBy(0, step);
-        if (window.scrollY <= 0) {
-          clearInterval(timer);
-        }
-      }, interval);
+<script setup lang="ts">
+function returnTop() {
+  const duration = 400; // 移動速度
+  const interval = 10; // 移動間隔
+  const step = -window.scrollY / Math.ceil(duration / interval); // 1回に移動する距離
+  const timer = setInterval(() => {
+    window.scrollBy(0, step);
+    if (window.scrollY <= 0) {
+      clearInterval(timer);
     }
-  }
-};
+  }, interval);
+}
 </script>
 
 <style scoped>

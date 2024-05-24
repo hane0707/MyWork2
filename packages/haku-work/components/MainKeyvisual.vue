@@ -12,7 +12,7 @@
     <div class="slider absolute w-full h-full hidden-sm-and-up" v-for="(image, i) in kv_sm" :key="i">
       <img
         class="slider-image w-full h-full object-cover"
-        :class="{ show: currentImageId == i }"
+        :class="{ 'show': currentImageId == i }"
         :src="image"
       />
     </div>
@@ -22,7 +22,6 @@
 <script>
 export default {
   data: () => ({
-    show: true,
     currentImageId: 0,
     kv_lg: [
       "/img/kv/lg/kv1.jpg",

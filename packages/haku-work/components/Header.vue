@@ -28,13 +28,9 @@
     </header>
 </template>
 
-<script>
-export default {
-  data: () => ({
-    drawer: null,
-    image: "/img/navigation1999.svg",
-  }),
-}
+<script setup lang="ts">
+const drawer = ref<boolean>(false);
+const image = "/img/navigation1999.svg";
 </script>
 
 <style>
