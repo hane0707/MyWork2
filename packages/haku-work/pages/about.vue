@@ -31,7 +31,16 @@
 
 <script setup lang="ts">
 useHead({ title: 'About' })
-const aboutImage = "/img/about_image.jpg"
+import { onMounted, ref } from 'vue';
+import { storeToRefs } from 'pinia';
+import { useWorksStore } from '@/store/works';
+
+const { aboutImage } = storeToRefs(useWorksStore());
+const { getAboutImage } = useWorksStore();
+
+onMounted(() => {
+  getAboutImage()
+});
 </script>
 
 <style scoped>

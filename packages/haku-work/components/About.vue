@@ -6,7 +6,7 @@
     <v-card class="mx-auto">
       <v-img
         class="align-top"
-        :src="aboutImage"
+        :src="aboutBgImage"
         max-height="700"
         cover  
       >
@@ -28,7 +28,18 @@
 </template>
 
 <script setup lang="ts">
-const aboutImage = "/img/about_bg.jpg";
+// const aboutImage = "/img/about_bg.jpg";
+import { onMounted, ref } from 'vue';
+import { storeToRefs } from 'pinia';
+import { useWorksStore } from '@/store/works';
+
+const { aboutBgImage } = storeToRefs(useWorksStore());
+const { getAboutSectionBgImage } = useWorksStore();
+
+onMounted(() => {
+  getAboutSectionBgImage()
+});
+
 </script>
 
 <style scoped>

@@ -2,7 +2,9 @@
   <div class="main relative w-screen h-screen">
     <div class="stack">
       <Error404 v-if="error.statusCode === 404"/>
-      <v-btn nuxt to="/" prepend-icon="mdi-chevron-right" color="black" size="x-large" class="btn w-full mt-6">
+      <p class="error-message">{{ error?.message }}</p>
+
+      <v-btn @click="handleError" prepend-icon="mdi-chevron-right" color="black" size="x-large" class="btn w-full mt-6">
         <span class="fl-nomal">Back to Top page</span>
       </v-btn>
     </div>
@@ -12,6 +14,7 @@
 
 <script setup lang="ts">
 const error = useError();
+const handleError = () => clearError({redirect: '/'})
 </script>
 
 <style scoped>
