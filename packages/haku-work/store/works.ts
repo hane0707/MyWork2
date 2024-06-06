@@ -133,7 +133,6 @@ export const useWorksStore = defineStore("works",{
           await getDownloadURL(firebaseRef(storage, image))
           .then((url) => {
             images.push(url);
-            console.log(images);
           })
           .catch((error) => {
             console.log(noImageErrorTextDetail);
@@ -229,7 +228,7 @@ export const useWorksStore = defineStore("works",{
  */
 function formatDate(date:string) {
   const new_date = new Date(date);
-  const new_date_text = `${new_date.getFullYear()}-${new_date.getMonth()}-${new_date.getDate()}`
+  const new_date_text = `${new_date.getFullYear()}-${new_date.getMonth()+1}-${new_date.getDate()}`
   return new_date_text
 }
 

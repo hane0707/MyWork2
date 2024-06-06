@@ -11,7 +11,8 @@
   "author": "",
   "license": "ISC",
   "workspaces": [
-    "packages/haku-work"
+    "packages/haku-work",
+    "packages/haku-manage"
   ],
   "dependencies": {
     "firebase-functions": "^4.9.0"

@@ -1,5 +1,18 @@
 {
   "projects": {
     "default": "haku-works"
-  }
+  },
+  "targets": {
+    "haku-works": {
+      "hosting": {
+        "works": [
+          "haku-works"
+        ],
+        "manage": [
+          "haku-works-manage"
+        ]
+      }
+    }
+  },
+  "etags": {}
 }

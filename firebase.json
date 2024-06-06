@@ -1,20 +1,55 @@
 {
-  "functions": {
-    "source": "packages/haku-work/.output/server",
-    "runtime": "nodejs20",
-    "predeploy": [
-      "npm install --prefix $RESOURCE_DIR legacy-peer-deps=true"
-    ]
+  "functions": [
+    {
+      "source": "packages/haku-work/.output/server",
+      "runtime": "nodejs20",
+      "predeploy": [
+        "npm install --prefix $RESOURCE_DIR legacy-peer-deps=true"
+      ],
+      "codebase": "default"
+    },
+    {
+      "source": "packages/haku-manage/.output/server",
+      "codebase": "haku-manage",
+      "ignore": [
+        "node_modules",
+        ".git",
+        "firebase-debug.log",
+        "firebase-debug.*.log"
+      ],
+      "predeploy": [
+        "npm install --prefix $RESOURCE_DIR legacy-peer-deps=true"
+      ]
+    }
+  ],
+  "hosting": [{
+      "target": "works",
+      "public": "packages/haku-work/.output/public",
+      "rewrites": [
+        { "source": "**", "function": "server", "region": "asia-northeast1" }
+      ],
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ]
+    },
+    {
+      "target": "manage",
+      "public": "packages/haku-manage/.output/public",
+      "rewrites": [{ "source": "**", "function": "manageserver", "region": "asia-northeast1" }],
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ]
+    }
+  ],
+  "firestore": {
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
   },
-  "hosting": {
-    "public": "packages/haku-work/.output/public",
-    "rewrites": [
-      { "source": "**", "function": "server" }
-    ],
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ]
+  "storage": {
+    "rules": "storage.rules"
   }
 }

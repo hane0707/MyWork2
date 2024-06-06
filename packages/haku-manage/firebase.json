@@ -1,0 +1,18 @@
+{
+  "functions": {
+    "source": ".output/server"
+  },
+  "hosting": [
+    {
+      "site": "haku-works",
+      "public": ".output/public",
+      "cleanUrls": true,
+      "rewrites": [
+        {
+          "source": "**",
+          "function": "manageserver"
+        }
+      ]
+    }
+  ]
+}
