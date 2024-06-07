@@ -7,6 +7,7 @@ const doc_name = route.params.doc_name;
 const { workDetail, newWorkDetail } = storeToRefs(useWorksStore());
 const { 
   getDetailWork,
+  updateWorkFirestore,
   deleteWorkFromFirestore,
   updateImagePathProperty,
   updateGalleryImagesPathProperty,
@@ -15,10 +16,6 @@ const {
 const input_image = ref<string>("");
 const input_gallery_images = ref<string[]>([]);
 let dialog = ref(false);
-
-const deleteWork = (doc_name: string) => {
-    deleteWorkFromFirestore(doc_name);
-}
 
 const uploadImage = (e: any) => {
   const file = e.target.files[0];
@@ -29,9 +26,6 @@ const uploadImage = (e: any) => {
   // アップロードファイルにアクセス可能なURLを作成し、プレビュー表示
   const url = URL.createObjectURL(file);
   input_image.value = url;
-}
-const deleteFile = () => {
-  input_image.value = "";
 }
 const uploadGallaryImages = (e: any) => {
   const files = e.target.files;
@@ -44,6 +38,11 @@ const onChangeGalleryImageCheck = (gallery_images_index: number) => {
 
 const update = () => {
   console.log("更新処理開始")
+  updateWorkFirestore();
+}
+
+const deleteWork = (doc_name: string) => {
+    deleteWorkFromFirestore(doc_name);
 }
 
 onMounted(() => {

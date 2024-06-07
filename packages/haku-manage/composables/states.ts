@@ -10,9 +10,15 @@ import {
     getDocs,
     orderBy,
     type OrderByDirection,
-    limit
+    limit,
+    runTransaction
 } from 'firebase/firestore'
-import { getStorage, ref as firebaseRef, getDownloadURL } from "firebase/storage";
+import {
+    getStorage,
+    ref as firebaseRef,
+    getDownloadURL,
+    uploadBytes
+} from "firebase/storage";
   
 const noImagePath = "/img/no-image.png";
 const noImageErrorText = "画像をサーバーから取得できませんでした。";
@@ -157,17 +163,71 @@ export const useWorksStore = defineStore("works",{
     },
     updateGalleryImagesPathProperty(files: FileList) {
         if (files.length < 1) {
-            // 1ファイルも選択されなかった場合、配列を初期状態に戻す
+            // 1ファイルも選択されなかった場合、配列を初期状態に戻して終了
             this.newWorkDetail.gallery_images_path = this.gallery_images_path_keep;
-        } else {
-            for (let index = 0; index < files.length; index++) {
-                this.newWorkDetail.gallery_images_path.push({path: "/img/" + this.workDetail.doc_name + "/" + files[index].name, state: true});
-            }    
+            return;
+        }
+
+        for (let index = 0; index < files.length; index++) {
+            const file: File = files[index];
+
+            // store更新
+            this.newWorkDetail.gallery_images_path.push({path: "/img/" + this.workDetail.doc_name + "/" + file.name, state: true});
+
+            // Firebase storageにアップロード
+            const storage = getStorage();
+            const storageRef = firebaseRef(storage, 'img/' + this.workDetail.doc_name + '/' + file.name);
+            uploadBytes(storageRef, file).then((snapshot) => {
+                console.log(file.name + '：Uploaded file!');
+            });
         }
     },
     updateGalleryImagesArrayState(gallery_images_index: number) {
         const state_value = this.newWorkDetail.gallery_images_path[gallery_images_index].state;
         this.newWorkDetail.gallery_images_path[gallery_images_index].state = !state_value;
+    },
+    async updateWorkFirestore() {
+        // 初期化
+        const db = getFirestore();
+        const doc_name = this.workDetail.doc_name; // 更新対象のFirestoreドキュメント
+        const docRef = doc(db, "dummy_works", doc_name);
+
+        try {
+            await runTransaction(db, async (transaction) => {
+              const doc = await transaction.get(docRef);
+              if (!doc.exists()) {
+                throw "指定されたドキュメントが存在しません。";
+              }
+              
+              const newDetails = this.newWorkDetail;
+              let image_paths = [] as string[];
+
+              // 有効なstorage画像パスのみを変数に格納
+              for (let index = 0; index < newDetails.gallery_images_path.length; index++) {
+                const obj = newDetails.gallery_images_path[index];
+                if (obj.state) {
+                    image_paths.push(obj.path);
+                }
+              }
+              console.log(image_paths);
+
+              // Firestore更新
+              transaction.update(docRef, {
+                title: newDetails.title,
+                title_en: newDetails.title_en,
+                title_cn: newDetails.title_cn,
+                material: newDetails.material,
+                voice: newDetails.voice,
+                description: newDetails.description,
+                created_at: newDetails.created_at,
+                image: newDetails.image_path,
+                gallery_images: image_paths
+              });
+            });
+            console.log("Transaction successfully committed!");
+          } catch (e) {
+            console.log("Transaction failed: ", e);
+          }
     }
   },
   // storeの永続化
