@@ -12,6 +12,7 @@ export default defineNuxtPlugin((nuxtApp) => {
         ],
         directives,
         theme: {
+            defaultTheme: 'dark',
             themes: {
                 light: { // テーマ名
                     colors: { // 以下で色を指定する（下記はデフォルト色）{

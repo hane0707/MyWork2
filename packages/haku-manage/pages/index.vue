@@ -39,6 +39,7 @@ function sortChange() {
     </div>
     <v-text-field
       v-model="search"
+      class="mb-2"
       density="compact"
       label="Search"
       prepend-inner-icon="mdi-magnify"
@@ -76,13 +77,7 @@ function sortChange() {
   font-weight: bold;
   font-size: large;
 }
-.v-data-table td {
-  background-color: #f0f8ff;
-}
-.v-data-table tr:nth-child(odd) td {
-  background-color: #fff;
-}
 .v-data-table tr:hover td {
-  background-color: #eee;
+  background-color: gray;
 }
 </style>

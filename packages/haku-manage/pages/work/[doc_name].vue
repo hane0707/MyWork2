@@ -4,7 +4,10 @@ import { storeToRefs } from 'pinia';
 
 const route = useRoute();
 const doc_name = route.params.doc_name;
-const { workDetail, newWorkDetail } = storeToRefs(useWorksStore());
+const {
+  workDetail,
+  newWorkDetail
+} = storeToRefs(useWorksStore());
 const { 
   getDetailWork,
   updateWorkFirestore,
@@ -14,22 +17,30 @@ const {
   updateGalleryImagesArrayState
 } = useWorksStore();
 const input_image = ref<string>("");
-const input_gallery_images = ref<string[]>([]);
+const renderKey = ref(0);
+const validationErrorText = ref<string>("");
+const imageUploadResultText = ref<string>("");
 let dialog = ref(false);
+let loading = ref(false);
 
 const uploadImage = (e: any) => {
   const file = e.target.files[0];
-
   // storeを更新（states.ts呼び出し）
-  updateImagePathProperty(file.name);
+  updateImagePathProperty(file);
 
   // アップロードファイルにアクセス可能なURLを作成し、プレビュー表示
   const url = URL.createObjectURL(file);
   input_image.value = url;
 }
-const uploadGallaryImages = (e: any) => {
+
+const uploadGallaryImages = async (e: any) => {
+  loading = true;
+  imageUploadResultText.value = "ファイルをアップロードしています……";
   const files = e.target.files;
-  updateGalleryImagesPathProperty(files);
+  const result = await updateGalleryImagesPathProperty(files);
+  renderKey.value = renderKey.value + 1;
+  imageUploadResultText.value = result ? "すべてのファイルをアップロードしました。" : "ファイルアップロードに失敗しました。";
+  loading = false;
 }
 
 const onChangeGalleryImageCheck = (gallery_images_index: number) => {
@@ -39,10 +50,6 @@ const onChangeGalleryImageCheck = (gallery_images_index: number) => {
 const update = () => {
   console.log("更新処理開始")
   updateWorkFirestore();
-}
-
-const deleteWork = (doc_name: string) => {
-    deleteWorkFromFirestore(doc_name);
 }
 
 onMounted(() => {
@@ -90,42 +97,61 @@ useHead({ title: route.params.id })
         <p class="py-2">created_at（展示開始日）：{{workDetail.created_at}}</p>
         <v-text-field v-model="newWorkDetail.created_at" variant="outlined" label="更新後のcreated_at　※yyyy-MM-dd形式（表示時はyyyy-M-d）" class="pl-4"></v-text-field>
       </v-col>
-      <v-col v-for="(ga_image, index) in workDetail.gallery_images" :key="index" class="d-flex child-flex" cols="6" xs="6" sm="4" lg="2">
-        <v-card>
-          <v-card-actions>
-            <v-checkbox @change="onChangeGalleryImageCheck(index)" :key="index" :input-value="index" density="compact" hide-details>
-              <template v-slot:label>
-                <p>{{newWorkDetail.gallery_images_path[index].path}}</p>
-              </template>
-            </v-checkbox>
-          </v-card-actions>
-          <v-img
-          :lazy-src="`https://picsum.photos/10/6?image=${index * 5 + 10}`"
-          :src="ga_image"
-          aspect-ratio="1"
-          class="bg-grey-lighten-2"
-          cover
-          >
-            <template v-slot:placeholder>
-              <v-row
-                align="center"
-                class="fill-height ma-0"
-                justify="center"
-              >
-                <v-progress-circular
-                  color="grey-lighten-5"
-                  indeterminate
-                ></v-progress-circular>
-              </v-row>
-            </template>
-          </v-img>
-        </v-card>
-      </v-col>
+      <v-divider thickness="3"></v-divider>
       <v-col cols="12">
-        <p>ギャラリー画像（doc.gallary_images）を追加する場合、画像を選択してください。</p>
-        <v-sheet class="ml-4">
-          <input @change="uploadGallaryImages" type="file" multiple data-label="画像の添付" class="file-button">
-        </v-sheet>
+        <p>ギャラリー用画像一覧</p>
+        <v-row class="mx-auto w-full h-full" :key="renderKey">
+          <v-col v-for="(ga_image, index) in workDetail.gallery_images" :key="index" class="d-flex child-flex mt-4" cols="6" xs="6" sm="4" lg="2">
+            <v-card min-width="100%">
+              <v-card-actions>
+                <v-switch
+                  v-model="newWorkDetail.gallery_images_path[index].state"
+                  inset
+                  hide-details
+                  density="compact"
+                  color="green"
+                >
+                  <template v-slot:label>
+                    <p class="text-caption">{{newWorkDetail.gallery_images_path[index].path}}</p>
+                  </template>
+                </v-switch>
+              </v-card-actions>
+              <v-img
+              :lazy-src="`https://picsum.photos/10/6?image=${index * 5 + 10}`"
+              :src="ga_image"
+              aspect-ratio="1"
+              class="bg-grey-lighten-2"
+              cover
+              >
+                <template v-slot:placeholder>
+                  <v-row
+                    align="center"
+                    class="fill-height ma-0"
+                    justify="center"
+                  >
+                    <v-progress-circular
+                      color="grey-lighten-5"
+                      indeterminate
+                    ></v-progress-circular>
+                  </v-row>
+                </template>
+              </v-img>
+            </v-card>
+          </v-col>
+          <v-col cols="12">
+            <p>Firebase storageにギャラリー用画像を追加する場合、ファイルを選択してください。</p>
+            <p class="text-red-accent-4 bold">{{imageUploadResultText}}</p>
+            <div v-if="loading">
+              <v-progress-circular
+                indeterminate
+                color="amber"
+              ></v-progress-circular>
+            </div>
+            <v-sheet class="ml-4">
+              <input v-if="!loading" @change="uploadGallaryImages" type="file" multiple data-label="画像の添付" class="file-button">
+            </v-sheet>
+          </v-col>
+        </v-row>
       </v-col>
       <v-col cols="6" class="text-grey-darken-1">
         <v-btn nuxt to='/' prepend-icon="mdi-chevron-left" class="">
@@ -134,11 +160,11 @@ useHead({ title: route.params.id })
       </v-col>
       <v-spacer></v-spacer>
       <v-col xs="3" sm="4" lg="1" class="text-grey-darken-1">
-        <v-btn @click="update" prepend-icon="mdi-chevron-left" class="">
+        <v-btn @click="update" prepend-icon="mdi-chess-knight" class="">
           <span class="fl-nomal">更新</span>
         </v-btn>
       </v-col>
-      <v-col xs="3" sm="4" lg="1" class="text-grey-darken-1">
+      <!-- <v-col xs="3" sm="4" lg="1" class="text-grey-darken-1">
         <v-btn prepend-icon="mdi-delete" color="error" class="">
           <span class="fl-nomal">削除</span>
           <v-dialog
@@ -159,7 +185,7 @@ useHead({ title: route.params.id })
             </div>
           </v-dialog>
         </v-btn>
-      </v-col>
+      </v-col> -->
     </v-row>
   </v-container>
 </template>
@@ -171,7 +197,7 @@ useHead({ title: route.params.id })
   padding: 10px;
 }
 .file-button {
-  border: 2px red dotted;
+  border: 2px grey dotted;
   padding: 30px 0px 30px 10px;
   width: 100%;
 }
@@ -185,5 +211,8 @@ useHead({ title: route.params.id })
   padding: 8px 16px;
   text-align: center;
   cursor: pointer;
+}
+.card-label {
+  font-size: xx-small;
 }
 </style>

@@ -3,6 +3,7 @@ import { defineNuxtPlugin } from '#app'
 import { getAnalytics } from "firebase/analytics";
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from 'firebase/storage';
+import { getAuth } from 'firebase/auth';
 
 export default defineNuxtPlugin(() => {
   const config = useRuntimeConfig()
@@ -20,5 +21,5 @@ export default defineNuxtPlugin(() => {
   const app = initializeApp(firebaseConfig)
   getAnalytics(app);
   getFirestore(app);
-  getStorage(app);  
+  getStorage(app);
 })

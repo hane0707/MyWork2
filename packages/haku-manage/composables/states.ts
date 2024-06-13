@@ -16,12 +16,16 @@ import {
 import {
     getStorage,
     ref as firebaseRef,
+    listAll,
     getDownloadURL,
-    uploadBytes
+    uploadBytes,
+    type StorageReference
 } from "firebase/storage";
+import { error } from "firebase-functions/logger";
   
 const noImagePath = "/img/no-image.png";
 const noImageErrorText = "画像をサーバーから取得できませんでした。";
+const imageMaxSize = 10485760; // 10MB
 
 export const useWorksStore = defineStore("works",{
   state: () => ({
@@ -29,9 +33,43 @@ export const useWorksStore = defineStore("works",{
     workDetail: {} as Works,
     sort: "desc" as string,
     newWorkDetail: {} as InputWorks,
-    gallery_images_path_keep: [{}] as [{path: string, state: boolean}] // 初期状態の退避用
+    validationErrorText: "" as string,
   }),
   actions: {
+    /**
+     * ギャラリー用画像をFirebase storageから取得
+     * @param doc_name 
+     * @returns 
+     */
+    async getImageUrl(doc_name: string) {
+        const storage = getStorage();
+        const docRef = firebaseRef(storage, "/img/" + doc_name);
+        let imagesRef = [] as StorageReference[];
+        await listAll(docRef).then((res) => {
+            if (res.items.length < 1) {
+                console.log("ギャラリー用画像が0件です。")
+                return;
+            }
+            imagesRef = res.items;
+        }).catch((error) => {
+            console.log("ギャラリー表示用画像の参照取得時にエラーが発生しました。")
+            return;
+        });
+
+        let imagesPathUrl = [{}] as [{path: string, url: string}];
+        for (let index = 0; index < imagesRef.length; index++) {
+            const path = imagesRef[index].fullPath;
+            await getDownloadURL(imagesRef[index]).then((url) => {
+                const obj = {path, url};
+                imagesPathUrl.push(obj)
+              })
+              .catch((error) => {
+                console.log(noImageErrorText);
+              });
+        }
+        imagesPathUrl.shift();
+        return imagesPathUrl;
+    },
     /**
      * Firestoreから一覧取得
      * @param order_sort ※ソート順（"asc"/"desc"）。デフォルトは"desc"。
@@ -91,6 +129,7 @@ export const useWorksStore = defineStore("works",{
       const storage = getStorage();
       const undefined_text = "データがありません";
       const noImageErrorTextDetail = doc_name + "の" + noImageErrorText;
+      this.validationErrorText = "";
 
       // Firestoreからデータを取得
       const docRef = doc(db, "chess_works", doc_name);
@@ -110,7 +149,7 @@ export const useWorksStore = defineStore("works",{
         this.workDetail.image = noImagePath;
         this.workDetail.gallery_images = [];
 
-        // storeへ更新処理用の初期値をセット　※"newWorkDetail = workDetail"とすると参照渡しになるため
+        // storeへ更新処理用の初期値をセット　※"newWorkDetail.hoge = workDetail.hoge"とすると参照渡しになるため
         this.newWorkDetail.title = data.title? data.title : undefined_text;
         this.newWorkDetail.title_en = data.title_en? data.title_en : undefined_text;
         this.newWorkDetail.title_cn = data.title_cn? data.title_cn : undefined_text;
@@ -121,16 +160,6 @@ export const useWorksStore = defineStore("works",{
         this.newWorkDetail.image_path = data.image? data.image : undefined; // storageの参照urlではなくpathを設定
         this.newWorkDetail.gallery_images_path = [{}] as [{path: string, state: boolean}]; // 初期化（後処理にて配列がundefindでpush()がないと怒られるため）
 
-        // newWorkDetail.gallery_images_pathの要素を作成
-        for (let index = 0; index < data.gallery_images.length; index++) {
-            const images_path = data.gallery_images[index];
-            this.newWorkDetail.gallery_images_path.push({"path": images_path, "state": true});
-        }
-        // オブジェクト初期化時に作成された空の先頭要素を削除
-        this.newWorkDetail.gallery_images_path.shift();
-        // 追加画像ファイルが削除されたときのために退避（ディープコピー）
-        this.gallery_images_path_keep = JSON.parse(JSON.stringify(this.newWorkDetail.gallery_images_path));
-
         // workDetail.imageをstorageから取得
         await getDownloadURL(firebaseRef(storage, data.image))
         .then((url) => {
@@ -140,47 +169,109 @@ export const useWorksStore = defineStore("works",{
           console.log(noImageErrorTextDetail);
         });
 
-        // workDetail.gallery_imagesをstorageから取得
-        let images = [] as string[];
-        for (const image of data.gallery_images) {
-            await getDownloadURL(firebaseRef(storage, image))
-            .then((url) => {
-              images.push(url);
-            })
-            .catch((error) => {
-              console.log(noImageErrorTextDetail);
-              images.push(noImagePath);
-            });
-        }
-        this.workDetail.gallery_images = images;
+        // 全てのギャラリー用画像をstorageから取得（非表示含む）
+        await this.getImageUrl(doc_name).then((res) => {
+            // storeに登録
+            for (const path_url of res) {
+                // Firestoreに登録のない画像は非表示画像として状態をfalseにする
+                const state :boolean = data.gallery_images.includes(path_url.path);
+                this.newWorkDetail.gallery_images_path.push({"path": path_url.path, "state": state});
+                this.workDetail.gallery_images.push(path_url.url);
+            }
+            // オブジェクト初期化時に作成された空の先頭要素を削除
+            this.newWorkDetail.gallery_images_path.shift();
+        });
       } else {
         // NO DATA
         throw new Error("データが見つかりません。");
       }
     },
-    updateImagePathProperty(path: string) {
-        this.newWorkDetail.image_path = "/img/" + path;
+    imageValidation(file: File) {
+        this.validationErrorText = "";
+        // 1. アップロードされるファイルが画像であること
+        if (!(file.type.includes('image'))) {
+            this.validationErrorText = '画像ファイルのみアップロード可能です'
+            return true
+        }
+ 
+        // 2. 画像のサイズが10MB未満であること
+        if (!(file.size < imageMaxSize)) {
+            this.validationErrorText = imageMaxSize + 'byte未満のファイルのみアップロード可能です'
+            return true
+        }
+ 
+        return false;
     },
-    updateGalleryImagesPathProperty(files: FileList) {
-        if (files.length < 1) {
-            // 1ファイルも選択されなかった場合、配列を初期状態に戻して終了
-            this.newWorkDetail.gallery_images_path = this.gallery_images_path_keep;
+    async uploadImageFile(file: File, main_image: boolean) {
+        const path = main_image ? 'img/' + file.name : 'img/' + this.workDetail.doc_name + '/' + file.name;
+        const storage = getStorage();
+        const storageRef = firebaseRef(storage, path);
+        await uploadBytes(storageRef, file).then((snapshot) => {
+            console.log(file.name + '：Uploaded file!');
+        }).catch((error) => {
+            console.log("storageへファイルアップロード時にエラー発生")
+            throw error;
+        });                
+    },
+    updateImagePathProperty(file: File) {
+        if (this.imageValidation(file)) {
             return;
+        }
+        this.newWorkDetail.image_path = "/img/" + file.name;
+        this.uploadImageFile(file, true);
+    },
+    async updateGalleryImagesPathProperty(files: FileList) {
+        let response = true;
+        if (files.length < 1) {
+            // 1ファイルも選択されなかった場合、処理終了
+            response = false;
+            return response;
         }
 
         for (let index = 0; index < files.length; index++) {
             const file: File = files[index];
-
-            // store更新
-            this.newWorkDetail.gallery_images_path.push({path: "/img/" + this.workDetail.doc_name + "/" + file.name, state: true});
-
             // Firebase storageにアップロード
-            const storage = getStorage();
-            const storageRef = firebaseRef(storage, 'img/' + this.workDetail.doc_name + '/' + file.name);
-            uploadBytes(storageRef, file).then((snapshot) => {
-                console.log(file.name + '：Uploaded file!');
+            this.uploadImageFile(file, false).then((res) => {
+                // store更新
+                this.newWorkDetail.gallery_images_path.push({path: "img/" + this.workDetail.doc_name + "/" + file.name, state: false});
+            }).catch((error) => {
+                response = false;
             });
         }
+
+        // Firebase storageへのアップロードが完全に終了するまで、念のため3秒待つ
+        const wait = (msec: number) => {
+            return new Promise((resolve, reject) => {
+                setTimeout(resolve, msec);
+            });
+        };
+        await wait(3000);
+
+        // Firestoreからデータを取得
+        const doc_name = this.workDetail.doc_name;
+        const db = getFirestore();
+        const docRef = doc(db, "chess_works", doc_name);
+        const docSnap = await getDoc(docRef);
+        const data = docSnap.data();
+
+        if (data) {
+            // 全てのギャラリー用画像をstorageから取得（非表示含む）
+            await this.getImageUrl(doc_name).then((res) => {
+                // 配列の初期化
+                this.newWorkDetail.gallery_images_path = [{}] as [{path: string, state: boolean}]
+                this.workDetail.gallery_images = [];
+                // storeに登録
+                for (const path_url of res) {
+                    // Firestoreに登録のない画像は非表示画像として状態をfalseにする
+                    const state :boolean = data.gallery_images.includes(path_url.path);
+                    this.newWorkDetail.gallery_images_path.push({"path": path_url.path, "state": state});
+                    this.workDetail.gallery_images.push(path_url.url);
+                }
+                // オブジェクト初期化時に作成された空の先頭要素を削除
+                this.newWorkDetail.gallery_images_path.shift();
+            });
+        }
+        return response;
     },
     updateGalleryImagesArrayState(gallery_images_index: number) {
         const state_value = this.newWorkDetail.gallery_images_path[gallery_images_index].state;
