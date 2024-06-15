@@ -11,7 +11,7 @@ const headers: any = [
   { title: 'title_en', key: 'title_en', sortable: false },
   { title: 'title_cn', key: 'title_cn', sortable: false },
   { title: 'material', key: 'material', sortable: false },
-  { title: '画像の登録点数', key: 'image_count', sortable: false },
+  { title: '画像数', key: 'image_count', sortable: false },
   { title: '編集', key: 'edit', sortable: false },
 ]
 const search = ref("");

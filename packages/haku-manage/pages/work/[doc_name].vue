@@ -3,7 +3,7 @@ import { onMounted, ref } from 'vue';
 import { storeToRefs } from 'pinia';
 
 const route = useRoute();
-const doc_name = route.params.doc_name;
+const doc_name = route.params.doc_name[0];
 const {
   workDetail,
   newWorkDetail
@@ -11,7 +11,6 @@ const {
 const { 
   getDetailWork,
   updateWorkFirestore,
-  deleteWorkFromFirestore,
   updateImagePathProperty,
   updateGalleryImagesPathProperty,
   updateGalleryImagesArrayState
@@ -34,13 +33,13 @@ const uploadImage = (e: any) => {
 }
 
 const uploadGallaryImages = async (e: any) => {
-  loading = true;
+  loading.value = true;
   imageUploadResultText.value = "ファイルをアップロードしています……";
   const files = e.target.files;
   const result = await updateGalleryImagesPathProperty(files);
   renderKey.value = renderKey.value + 1;
   imageUploadResultText.value = result ? "すべてのファイルをアップロードしました。" : "ファイルアップロードに失敗しました。";
-  loading = false;
+  loading.value = false;
 }
 
 const onChangeGalleryImageCheck = (gallery_images_index: number) => {
@@ -55,8 +54,6 @@ const update = () => {
 onMounted(() => {
   getDetailWork(doc_name);
 });
-
-useHead({ title: route.params.id })
 </script>
 
 <template>
@@ -160,7 +157,7 @@ useHead({ title: route.params.id })
       </v-col>
       <v-spacer></v-spacer>
       <v-col xs="3" sm="4" lg="1" class="text-grey-darken-1">
-        <v-btn @click="update" prepend-icon="mdi-chess-knight" class="">
+        <v-btn @click="update" prepend-icon="mdi-chess-rook" class="">
           <span class="fl-nomal">更新</span>
         </v-btn>
       </v-col>

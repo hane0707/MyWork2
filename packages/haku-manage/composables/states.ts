@@ -22,7 +22,7 @@ import {
     type StorageReference
 } from "firebase/storage";
 import { error } from "firebase-functions/logger";
-  
+
 const noImagePath = "/img/no-image.png";
 const noImageErrorText = "画像をサーバーから取得できませんでした。";
 const imageMaxSize = 10485760; // 10MB
@@ -327,6 +327,80 @@ export const useWorksStore = defineStore("works",{
   },
 });
 
+export const useAuthStore = defineStore("auth", {
+  state: () => ({
+    user: {} as User,
+  }),
+  actions: {
+    async login() {
+      // ログイン処理
+      const { googleLogin } = useAuth();
+      const uid = await googleLogin();
+
+      // ユーザー情報を取得
+      if (uid) {
+        const db = getFirestore();
+        const q = query(collection(db, "users"), where("uid", "==", uid), limit(1))
+        const querySnapshot = await getDocs(q);
+        if (querySnapshot.empty) {
+          console.log("ユーザー情報取得失敗");
+          return false;
+        }
+        querySnapshot.forEach((doc) => {
+          this.user.name = doc.data().name;
+        })
+        return true;
+      }else {
+        return false;
+      }
+    },
+    async signUp(dispName: string) {
+      // サインアップ
+      const { googleSignUp } = useAuth();
+      const uid = await googleSignUp(dispName);
+      if (uid) {
+        this.user.name = dispName;
+        return true;
+      } else {
+        return false;
+      }
+    },
+    logout() {
+      const { googleLogout } = useAuth();
+      googleLogout();
+    }
+  },
+  // storeの永続化
+  persist: {
+    storage: persistedState.sessionStorage,
+  },
+})
+
+export const useToastStore = defineStore("toast", {
+  state: (): State => ({
+    isActive: false,
+    text: null,
+    color: "success"
+  }),
+  actions: {
+    unsetSnackbar() {
+      this.$reset()
+    },
+    setToast(text: State['text']) {
+      this.isActive = true
+      this.text = text
+    },
+    setSuccessToast(text: State['text']) {
+      this.setToast(text)
+      this.color = 'success'
+    },
+    setErrorToast(text: State['text']) {
+      this.setToast(text)
+      this.color = 'error'
+    },
+  },
+})
+
 /**
  * 日付フォーマットの変換（yyyy-MM-dd　→　yyyy-M-d）
  * @param date 
@@ -364,4 +438,14 @@ interface InputWorks {
         path: string,
         state: boolean // false:更新時、Firestoreから削除
     }];
+  }
+
+  interface User {
+    name: string
+  }
+
+  interface State {
+    isActive: boolean
+    text: string | null
+    color: 'success' | 'error'
   }
