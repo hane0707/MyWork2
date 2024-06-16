@@ -3,7 +3,7 @@ import { onMounted, ref } from 'vue';
 import { storeToRefs } from 'pinia';
 
 const route = useRoute();
-const doc_name = route.params.doc_name[0];
+const doc_name = route.params.doc_name as string;
 const {
   workDetail,
   newWorkDetail
@@ -13,7 +13,6 @@ const {
   updateWorkFirestore,
   updateImagePathProperty,
   updateGalleryImagesPathProperty,
-  updateGalleryImagesArrayState
 } = useWorksStore();
 const input_image = ref<string>("");
 const renderKey = ref(0);
@@ -42,13 +41,17 @@ const uploadGallaryImages = async (e: any) => {
   loading.value = false;
 }
 
-const onChangeGalleryImageCheck = (gallery_images_index: number) => {
-  updateGalleryImagesArrayState(gallery_images_index);
-}
-
-const update = () => {
+const update = async () => {
+  const toastStore = useToastStore();
   console.log("更新処理開始")
-  updateWorkFirestore();
+  const res: boolean = await updateWorkFirestore();
+
+  if (res) {
+    toastStore.setSuccessToast("更新しました。")
+  } else {
+    toastStore.setErrorToast("更新に失敗しました。")
+  }
+  dialog.value = false;
 }
 
 onMounted(() => {
@@ -157,8 +160,25 @@ onMounted(() => {
       </v-col>
       <v-spacer></v-spacer>
       <v-col xs="3" sm="4" lg="1" class="text-grey-darken-1">
-        <v-btn @click="update" prepend-icon="mdi-chess-rook" class="">
+        <v-btn prepend-icon="mdi-chess-rook" class="">
           <span class="fl-nomal">更新</span>
+          <v-dialog
+            v-model="dialog"
+            activator="parent"
+          >
+            <div class="d-flex justify-center">
+              <v-card variant="elevated" max-width="400">
+                <v-card-title>Update waiting.</v-card-title>
+                <v-divider thickness="3"></v-divider>
+                <v-card-text>現在の入力値で更新していいですか？</v-card-text>
+                <v-card-actions>
+                  <v-btn color="primary" @click="update">更新</v-btn>
+                  <v-spacer></v-spacer>
+                  <v-btn color="secondary" @click="dialog = false">キャンセル</v-btn>
+                </v-card-actions>
+              </v-card>
+            </div>
+          </v-dialog>
         </v-btn>
       </v-col>
       <!-- <v-col xs="3" sm="4" lg="1" class="text-grey-darken-1">

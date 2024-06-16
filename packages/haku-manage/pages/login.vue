@@ -28,7 +28,6 @@ const login = async () => {
 }
 const signUp = async () => {
   const toastStore = useToastStore();
-  console.log(valid.value)
   if (!valid.value) {
     toastStore.setErrorToast("アカウント名が入力ルールを満たしていません。")
     return;

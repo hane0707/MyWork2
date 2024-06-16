@@ -273,52 +273,50 @@ export const useWorksStore = defineStore("works",{
         }
         return response;
     },
-    updateGalleryImagesArrayState(gallery_images_index: number) {
-        const state_value = this.newWorkDetail.gallery_images_path[gallery_images_index].state;
-        this.newWorkDetail.gallery_images_path[gallery_images_index].state = !state_value;
-    },
     async updateWorkFirestore() {
-        // 初期化
-        const db = getFirestore();
-        const doc_name = this.workDetail.doc_name; // 更新対象のFirestoreドキュメント
-        const docRef = doc(db, "dummy_works", doc_name);
+      // 初期化
+      const db = getFirestore();
+      const doc_name = this.workDetail.doc_name; // 更新対象のFirestoreドキュメント
+      const docRef = doc(db, "chess_works", doc_name);
+      let res = false;
 
-        try {
-            await runTransaction(db, async (transaction) => {
-              const doc = await transaction.get(docRef);
-              if (!doc.exists()) {
-                throw "指定されたドキュメントが存在しません。";
+      try {
+          await runTransaction(db, async (transaction) => {
+            const doc = await transaction.get(docRef);
+            if (!doc.exists()) {
+              throw "指定されたドキュメントが存在しません。";
+            }
+            
+            const newDetails = this.newWorkDetail;
+            let image_paths = [] as string[];
+
+            // 有効なstorage画像パスのみを変数に格納
+            for (let index = 0; index < newDetails.gallery_images_path.length; index++) {
+              const obj = newDetails.gallery_images_path[index];
+              if (obj.state) {
+                  image_paths.push(obj.path);
               }
-              
-              const newDetails = this.newWorkDetail;
-              let image_paths = [] as string[];
+            }
 
-              // 有効なstorage画像パスのみを変数に格納
-              for (let index = 0; index < newDetails.gallery_images_path.length; index++) {
-                const obj = newDetails.gallery_images_path[index];
-                if (obj.state) {
-                    image_paths.push(obj.path);
-                }
-              }
-              console.log(image_paths);
-
-              // Firestore更新
-              transaction.update(docRef, {
-                title: newDetails.title,
-                title_en: newDetails.title_en,
-                title_cn: newDetails.title_cn,
-                material: newDetails.material,
-                voice: newDetails.voice,
-                description: newDetails.description,
-                created_at: newDetails.created_at,
-                image: newDetails.image_path,
-                gallery_images: image_paths
-              });
+            // Firestore更新
+            transaction.update(docRef, {
+              title: newDetails.title,
+              title_en: newDetails.title_en,
+              title_cn: newDetails.title_cn,
+              material: newDetails.material,
+              voice: newDetails.voice,
+              description: newDetails.description,
+              created_at: newDetails.created_at,
+              image: newDetails.image_path,
+              gallery_images: image_paths
             });
-            console.log("Transaction successfully committed!");
-          } catch (e) {
-            console.log("Transaction failed: ", e);
-          }
+          });
+          res = true;
+          console.log("Transaction successfully committed!");
+        } catch (e) {
+          console.log("Transaction failed: ", e);
+        }
+        return res;
     }
   },
   // storeの永続化

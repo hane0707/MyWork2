@@ -10,7 +10,7 @@ const toastStore = useToastStore()
   <v-snackbar
     v-model="isActive"
     multi-line
-    timeout="3000"
+    timeout="5000"
     :color="toastStore.color"
     location="top center"
     variant="tonal"
