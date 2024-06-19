@@ -6,14 +6,14 @@
     <v-row>
       <v-col
         v-for="(work, index) in works"
-        :key="work.id"
+        :key="work.doc_name"
         class="d-flex child-flex"
         cols="6"
         xs="6"
         sm="4"
         lg="3"
       >
-        <nuxt-link :to="`/work/work-${work.id}`"
+        <nuxt-link :to="`/work/work-${work.doc_name}`"
           v-if="index < 8"
           class="w-full h-full"
         >
@@ -52,7 +52,10 @@ import { storeToRefs } from 'pinia';
 import { useWorksStore } from '@/store/works';
 
 const { works } = storeToRefs(useWorksStore());
-const { getWorks, getWorksFirestore } = useWorksStore();
+const {
+  // getWorks,
+  getWorksFirestore
+} = useWorksStore();
 
 onMounted(() => {
   // getWorks(); // ダミーデータから取得に切り替える場合

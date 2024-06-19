@@ -9,7 +9,7 @@
     <v-row>
       <v-col
         v-for="(work, index) in works"
-        :key="work.id"
+        :key="work.doc_name"
         class="d-flex child-flex"
         :class="[index == 1 ? 'shake' : '']"
         cols="6"
@@ -18,7 +18,7 @@
         lg="3"
       >
         <div class="image-frame w-full h-full">
-          <nuxt-link :to="`/work/work-${work.id}`">
+          <nuxt-link :to="`/work/work-${work.doc_name}`">
             <v-img
               :lazy-src="`https://picsum.photos/10/6?image=${index * 5 + 10}`"
               :src="work.image"

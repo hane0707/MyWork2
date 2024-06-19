@@ -58,20 +58,36 @@
 import { onMounted, ref } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useWorksStore } from '@/store/works'
+import type { MetaObject } from 'nuxt/schema';
 
 const route = useRoute();
-const id = parseInt(route.params.id, 10);
-const { works } = storeToRefs(useWorksStore());
+const doc_name = route.params.id as string;
 const { workDetail } = storeToRefs(useWorksStore());
-const { getWorks, getWorksFirestore } = useWorksStore();
+// const { getWorks, getWorksFirestore } = useWorksStore();
 const { getDetailWork } = useWorksStore();
 
 onMounted(() => {
   // getWorks(); // ダミーデータから取得に切り替える場合
-  getDetailWork(id);
+  getDetailWork(doc_name);
 });
 
-useHead({ title: route.params.id })
+// タブ名とメタ情報の設定
+const thisPath = useRuntimeConfig().public.url + useRoute().path
+const metaObject = computed((): MetaObject => {
+  return {
+    title: workDetail.value.title,
+    meta: [
+      { property: "og:type", content: "article" },
+      { property: "og:url", content: thisPath },
+      { property: "og:site_name", content: process.env.BASE_URL },
+      { property: "og:title", content: workDetail.value.title },
+      { property: "og:description", content: workDetail.value.description },
+      { property: "og:image", content: workDetail.value.image }
+    ]
+  }
+})
+
+useHead(metaObject)
 
 // // ダミーデータから取得に切り替える場合
 // definePageMeta({

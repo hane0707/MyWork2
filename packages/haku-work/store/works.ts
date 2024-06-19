@@ -44,7 +44,6 @@ export const useWorksStore = defineStore("works",{
      */
     async getWorksFirestore(order_sort: OrderByDirection = "desc", limit_number: number = 1000) {
       // 初期化
-      let id = 0;
       this.works = []
       const db = getFirestore();
       const storage = getStorage();
@@ -71,7 +70,6 @@ export const useWorksStore = defineStore("works",{
   
         this.works.push({
           "doc_name": data.doc_name,
-          "id": id.toString(),
           "title": data.title,
           "title_en": data.title_en,
           "title_cn": data.title_cn,
@@ -84,29 +82,26 @@ export const useWorksStore = defineStore("works",{
         })
         
         this.sort = order_sort
-        id += 1;
       }
     },
     /**
      * チェス駒の詳細ページ表示用のstoreを設定する
      * @param id 
      */
-    async getDetailWork(id: number) {
+    async getDetailWork(doc_name: string) {
       // 初期化
       const db = getFirestore();
       const storage = getStorage();
-      const docName = this.works[id].doc_name;
       const undefined_text = "データがありません";
-      const noImageErrorTextDetail = docName + "の" + noImageErrorText;
+      const noImageErrorTextDetail = doc_name + "の" + noImageErrorText;
 
       // Firestoreからデータを取得
-      const docRef = doc(db, "chess_works", docName);
+      const docRef = doc(db, "chess_works", doc_name);
       const docSnap = await getDoc(docRef);
       const data = docSnap.data();
 
       // storeへデータセット
-      this.workDetail.doc_name = docName
-      this.workDetail.id = id.toString();
+      this.workDetail.doc_name = doc_name
       this.workDetail.title = data? data.title : undefined_text;
       this.workDetail.title_en = data? data.title_en : undefined_text;
       this.workDetail.title_cn = data? data.title_cn : undefined_text;
@@ -234,7 +229,6 @@ function formatDate(date:string) {
 
 interface Works {
   doc_name: string;
-  id: string;
   title: string;
   title_en: string;
   title_cn: string;
