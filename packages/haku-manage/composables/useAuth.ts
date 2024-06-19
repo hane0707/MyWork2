@@ -3,19 +3,16 @@ import {
   type UserCredential,
   onAuthStateChanged,
   signInWithPopup,
-  signInWithRedirect,
   GoogleAuthProvider,
   getAuth,
-  signOut
+  signOut,
+  setPersistence,
+  browserSessionPersistence
 } from "firebase/auth";
 import { computed, ref } from "vue";
 import {
   getFirestore,
-  collection,
-  where,
-  query,
   getDoc,
-  getDocs,
   setDoc,
   doc
 } from '@firebase/firestore';
@@ -29,15 +26,23 @@ export function useAuth() {
  
   auth.onIdTokenChanged((authUser) => (user.value = authUser));
  
-  // ユーザー情報取得
+  /**
+   * ユーザー情報取得
+   * @param uid 
+   * @returns 
+   */
   const getUser = async (uid: string): Promise<any> => {
     const docRef = doc(db, "users", uid);
     const docSnap = await getDoc(docRef);
  
-    return docSnap;
+    return docSnap.data();
   };
  
-  // ユーザー作成
+  /**
+   * ユーザー作成
+   * @param user 
+   * @param dispName 
+   */
   const createUser = async (user: UserCredential ,dispName: string) => {
     await setDoc(doc(db, 'users', user.user.uid), {
       uid: user.user.uid,
@@ -54,17 +59,22 @@ export function useAuth() {
     try {
       const provider = new GoogleAuthProvider();
       const auth = getAuth();
-      const googleUser = await signInWithPopup(auth, provider);
-      const user = await getUser(googleUser.user.uid);
+      let user: any;
+      // ログインセッション
+      await setPersistence(auth, browserSessionPersistence).then(async () => {
+        const googleUser = await signInWithPopup(auth, provider); // chromeにログインしているアカウントが勝手に選択される恐れがある？
+        user = await getUser(googleUser.user.uid);
+      })
+      console.log(user)
 
-      if (user.data()) {
+      if (user) {
         const { updateUser } = await useUser();
-        updateUser(user.data());
-        console.log("ログイン成功");
-        return googleUser.user.uid;
+        updateUser(user);
+        console.info("ログイン成功");
+        return user;
       } else {
         // 認証成功しても、storeからデータが取れなければユーザー未登録でエラー
-        console.log("ユーザー未登録")
+        console.error("ユーザー未登録");
         googleLogout();
         return null;
       }
@@ -84,19 +94,20 @@ export function useAuth() {
       const googleUser = await signInWithPopup(auth, provider);
       const user = await getUser(googleUser.user.uid);
 
-      if (user.data()) {
-        console.log("登録済みユーザー")
+      if (user) {
+        console.error("登録済みユーザー");
         googleLogout();
         return res;
       }
       // 未登録のユーザーの場合、storeにデータを追加して正常終了
       await createUser(googleUser ,dispName).then(async () => {
-        const { updateUser } = await useUser()
-        const newUser = await getUser(googleUser.user.uid)
-        updateUser(newUser.data())
+        const { updateUser } = await useUser();
+        const newUser = await getUser(googleUser.user.uid);
+        updateUser(newUser)
+        console.info("サインアップ成功");
         res = googleUser.user.uid;
       }).catch((error) => {
-        console.log("登録処理でエラー発生")
+        console.error("登録処理でエラー発生");
         googleLogout();
         throw error;
       })
@@ -107,6 +118,9 @@ export function useAuth() {
     return res;
   }
 
+  /**
+   * Googleログアウト
+   */
   function googleLogout() {
     signOut(auth).then(() => {
       useAuthStore().user.name = "";

@@ -2,8 +2,9 @@ import {getAuth, onAuthStateChanged} from '@firebase/auth'
 
 export default defineNuxtRouteMiddleware( async(to,from) => {
   if (!process.server) {
+    const auth = getAuth();
     const checkAuthState = new Promise((resolve, reject) => {
-      onAuthStateChanged(getAuth(), async user => {
+      onAuthStateChanged(auth, async user => {
         if (user) {
           resolve(user);
         } else {

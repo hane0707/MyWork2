@@ -12,7 +12,7 @@ const toastStore = useToastStore()
     multi-line
     timeout="5000"
     :color="toastStore.color"
-    location="top center"
+    location="bottom center"
     variant="tonal"
     class="py-2"
     @on-vnode-unmounted="toastStore.unsetSnackbar()"

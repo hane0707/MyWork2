@@ -7,39 +7,46 @@ const rules = [
   (value:string) => maxCharRule(value),
 ]
 const requireRule = (value:string) => {
-    return value ? true : 'Required.'
+    return value ? true : 'Required.';
 }
 const maxCharRule = (value:string) => {
-    return (value || '').length <= 20 || '20文字以内で入力してください。'
+    return (value || '').length <= 20 || '20文字以内で入力してください。';
 }
 
+// ログイン
 const login = async () => {
   loading.value = true;
   const toastStore = useToastStore();
   const { login } = useAuthStore();
   const res = await login();
-  if (res) {
+  if (res.result == "success") {
     toastStore.setSuccessToast("ログインしました。");
     navigateTo("/", { replace: true }); // topページへ遷移
+  } else if (res.result == "faild-not-exists-user") {
+    toastStore.setErrorToast("ユーザーが存在しません。アカウント登録がまだの場合は「SignUp」ボタンから登録してください。");
   } else {
     toastStore.setErrorToast("ログインに失敗しました。");
   }
   loading.value = false;
 }
+
+// サインアップ
 const signUp = async () => {
   const toastStore = useToastStore();
   if (!valid.value) {
-    toastStore.setErrorToast("アカウント名が入力ルールを満たしていません。")
+    toastStore.setErrorToast("アカウント名が入力ルールを満たしていません。");
     return;
   }
   loading.value = true;
   const { signUp } = useAuthStore();
   const res = await signUp(dispName.value);
-  if (res) {
+  if (res.result == "success") {
     toastStore.setSuccessToast("アカウントを登録しました。");
     navigateTo("/", { replace: true }); // topページへ遷移
+  } else if (res.result == "faild-exists-user") {
+    toastStore.setErrorToast("すでに同一のGoogleアカウントが登録済みです。「Login」ボタンからログインしてください。");
   } else {
-    toastStore.setErrorToast("アカウントの登録に失敗しました。すでに同一のGoogleアカウントで登録済みの場合は「Login」ボタンからログインしてください。");
+    toastStore.setErrorToast("アカウントの登録に失敗しました。");
   }
   loading.value = false;
 }

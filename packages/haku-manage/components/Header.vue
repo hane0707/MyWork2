@@ -1,5 +1,6 @@
 <script setup lang="ts">
-const { logout, user } = useAuthStore()
+const { user } = storeToRefs(useAuthStore());
+const { logout } = useAuthStore()
 const link = "https://haku-works.web.app"
 const drawer = ref<boolean>(false);
 const image = "/img/navigation1999_light.svg";
@@ -35,6 +36,3 @@ const image = "/img/navigation1999_light.svg";
   </v-navigation-drawer>
 </header>
 </template>
-
-<style>
-</style>
